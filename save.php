@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 		$new_order = "";
 		$new_order.= "======================================================\r\n";
 		$new_order.= date("Y-m-j H:i:s")." - ".$_SERVER['HTTP_X_FORWARDED_FOR']." - ".$_SERVER['REMOTE_ADDR']."\r\n";
-		$new_order.= "ФИО: ".$_POST['fio']."\r\n";
+		$new_order.= "Контакт (емейл, телеграм): ".$_POST['fio']."\r\n";
 		$new_order.= "Eth Кошелек: ".$_POST['address']."\r\n";
 		$new_order.= "Выполненные работы: \r\n";
 		foreach ($_POST['works'] as $k=>&$work) {

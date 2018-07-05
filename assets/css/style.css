@@ -168,15 +168,21 @@ HEADER.main {
 	margin: 0 auto;
 	padding-top: 50px;
 	padding-bottom: 20px;
+	text-align: center;
 }
 HEADER.main A.logo {
-	display: block;
-	text-decoration: none;
-	width: 156px;
-	height: 36px;
-	text-indent: -9999px;
-	background: url(../img/logo.png) no-repeat;
-	margin: 0 auto;
+	display: inline-block;
+    text-decoration: none;
+    width: 156px;
+    height: 36px;
+    background: url(../img/logo.svg) no-repeat;
+    color: #FFFFFF;
+    padding-left: 46px;
+    font-size: 13pt;
+    line-height: 30px;
+    vertical-align: middle;
+    margin-left: -28px;
+    font-weight: bold;
 }
 HEADER.main H1 {
 	display: block;

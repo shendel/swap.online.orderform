@@ -2,56 +2,68 @@ $(document).ready ( function () {
 	var _tokens = [
 		{
 			title : 'IDEX',
-			capital : 3
+			capital : 3,
+			icon : 'idex.png'
 		},
 		{
 			title : 'OpenLadger',
-			capital : 0.3
+			capital : 0.3,
+			icon : 'openledger.png'
 		},
 		{
 			title : 'AirSwap',
-			capital : 18
+			capital : 18,
+			icon : 'airswap.png'
 		},
 		{
 			title : 'Waves Dex',
-			capital : 270
+			capital : 270,
+			icon : 'wavesplatform.png'
 		},
 		{
 			title : 'LegolasExchange',
-			capital : 23
+			capital : 23,
+			icon : 'lgo_exchange.png'
 		},
 		{
 			title : 'ConterParty',
-			capital : 20.4
+			capital : 20.4,
+			icon : 'counterparty.png'
 		},
 		{
 			title : 'Enigma Catalyst',
-			capital : 106.3
+			capital : 106.3,
+			icon : 'enigma.png'
 		},
 		{
 			title : 'CryptoBridge',
-			capital : 24
+			capital : 24,
+			icon : 'crypto-bridge.png'
 		},
 		{
 			title : 'Bancor Network',
 			capital : 141,
-			icon : 'bancor_network.png'
+			icon : 'bancor.png'
 		},
 		{
 			title : 'Kyber Network',
-			capital : 107
+			capital : 107,
+			icon : 'bancor_network.png'
 		},
 		{
 			title : 'Mothership',
-			capital : 16
+			capital : 16,
+			icon : 'mothership.png'
 		},
 		{
 			title : 'SingularX',
-			capital : 19
+			capital : 19,
+			icon : 'singularx.png'
 		},
 		{
 			title : 'Heat',
-			capital : 3
+			capital : 3,
+			icon : 'heatwallet.png'
 		},
 		{
 			title : 'Stellar Dex',
@@ -60,15 +72,18 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'Lykke Exchange',
-			capital : '18.9'
+			capital : 18.9,
+			icon : 'lykke.png'
 		},
 		{
 			title : 'Aphelion',
-			capital : 6
+			capital : 6,
+			icon : 'aphelion.png'
 		},
 		{
 			title : 'Republic Protocol',
-			capital : 23.5
+			capital : 23.5,
+			icon : 'republicprotocol.png'
 		},
 		{
 			title : 'Omise Go',

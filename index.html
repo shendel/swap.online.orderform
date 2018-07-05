@@ -1,0 +1,233 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Swap.Online - Форма для выставления счетов</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="./assets/css/reset.css" />
+	<link rel="stylesheet" href="./assets/css/style.css" />
+	<script src="./assets/js/libs/prefixfree.min.js"></script>
+	<script src="./assets/js/libs/modernizr-3.2.0.base.js"></script>
+	<script src="./assets/js/libs/jquery-3.3.1.min.js"></script>
+</head>
+<body class="has-form-scale" data-step="1">
+	<header class="main">
+		<a href="#" class="logo">Swap.Online</a>
+		<h1>Форма для выставления счетов Swap.Online</h1>
+		<span>Если вы сделали работу для Swap.Online, заполните эту форму, и мы заплатим вам.</span>
+		<div>
+			<p>Прочитайте политику оплаты:</p>
+			<a target="_blank" href="https://wiki.swap.online/pay-policy">https://wiki.swap.online/pay-policy</a>
+		</div>
+	</header>
+	<div id="swap-online-form-holder">
+		<section class="form-wrapper" id="swap-online-form">
+			<article class="form-step-1 active" id="form-step-1">
+				<header>
+					<h1>Шаг 1 из 3</h1>
+					<h2>Основной счет</h2>
+					<em></em>
+				</header>
+				<div class="form-row">
+					<label>Ваше ФИО</label>
+					<input type="text" id="form-input-fio" placeholder="Иванов Иван Иванович" />
+				</div>
+				<div class="form-row form-dollar-eth-holder">
+					<div>
+						<label>Сколько мы вам должны?</label>
+						<input type="text" class="input-dollar" disabled="true" id="form-input-dollar" placeholder="455"/>
+					</div>
+					<div>
+						<label>Сумма в ETH</label>
+						<input type="text" class="input-eth" disabled="true" id="form-input-eth" placeholder="1"/>
+					</div>
+				</div>
+				<div class="form-row">
+					<label>Описание работы</label>
+					<ul class="form-work-holder form-work-one" id="form-works-holder">
+						<li class="form-work-row">
+							<input type="text" placeholder="Описание выполненной работы"/>
+							<a href="#"></a>
+						</li>
+						<li class="form-work-row form-work-input-templ">
+							<input type="text" placeholder="Описание выполненной работы" />
+							<a href="#"></a>
+						</li>
+					</ul>
+					<a href="#" class="form-add-more-work">Добавить еще работу</a>
+				</div>
+				<footer>
+					<a href="#" class="form-button" id="form-go-to-step-2">Продолжить &rarr;</a>
+				</footer>
+			</article>
+			<article class="form-step-2" id="form-step-2">
+				<header>
+					<h1>Шаг 2 из 3</h1>
+					<h2>Токены</h2>
+					<em></em>
+				</header>
+				<div class="form-row">
+					<label>Какую часть суммы вы хотите получить в токенах?</label>
+					<div class="form-input-droplist">
+						<input type="text" disabled="true" id="input-token-percent" value="10%" />
+						<input type="checkbox" />
+						<ul>
+							<li data-value="10%">10%</li>
+							<li data-value="20%">20%</li>
+							<li data-value="30%">30%</li>
+							<li data-value="40%">40%</li>
+							<li data-value="50%">50%</li>
+							<li data-value="60%">60%</li>
+							<li data-value="70%">70%</li>
+							<li data-value="80%">80%</li>
+							<li data-value="90%">90%</li>
+							<li data-value="100%">100%</li>
+						</ul>
+					</div>
+				</div>
+				<div class="form-row">
+					<label>Оцените стоимость 1 токена</label>
+					<div class="form-input-roller">
+						<input type="hidden" id="input-token-price" />
+						<div class="form-input-roller-scroller">
+							<em></em>
+							<div class="form-input-roller-button">
+								<em>2.34$</em>
+							</div>
+						</div>
+						<span class="form-input-roller-min">0.1$</span>
+						<span class="form-input-roller-max">250$</span>
+					</div>
+					<div class="form-info">
+						<p>Оценка стоимости токена помогает увидеть, как сильно сотрудники верят в проект.</p>
+						<p>Swap.Online оставляет за собой право автоматически выкупить у вас токены по такой цене за ETH</p>
+					</div>
+					
+				</div>
+				<div class="form-description">
+					<p><strong>Всего будет выпущено 21 миллион SWAP токенов</strong>, которые будут торговаться на swap.online.</p>
+					<p>Swap токены нужны пользователям для повышения своего рейтинга в системе, оплаты услуг Swap.Online (повышение лимитов, залог для маркетмейкеров), расчетов между собой.</p>
+				</div>
+				<div class="form-row">
+					<div class="form-user-capitalize">
+						<p>Вы оценили капитализацию swap.online в <em class="form-user-capitalize">#### $</em> 
+						<span>
+							<strong></strong>
+							<em>Rапитализация = Количество токенов умножить на цену одного токена</em>
+						</span>
+					</div>
+					<div class="other-capitalize-holder">
+						<ul class="other-capitalize">
+							<li class="swap-online">
+								<u></u>
+								<strong>Swap Online</strong>
+								<span class="form-user-capitalize">700000$</span>
+								<em><u></u></em>
+							</li>
+							<li class="other-capitalize-templ">
+								<u></u>
+								<strong></strong>
+								<span></span>
+								<em><u></u></em>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<footer>
+					
+					<a href="#" class="form-button" id="go-to-step-3">Продолжить &rarr;</a>
+					<div class="form-tooltip">
+						<a href="#">Я не могу получить оплату в токенах</a>
+						<input type="checkbox" />
+						<div>
+							<p>По разным причинам вам могут быть срочно нужны деньги в фиате (в долларах или рублях). Если это случилось, и вы назвали минимальную сумму в долларах, меньше которой вы никак не можете получить (даже 10% в Swap токенах), то тогда напишите об этом <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> в Телеграм.</p>
+							<p>По договорнности с <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> вы можете увеличить изначальную сумму на 10%, чтобы получить 100% суммы в ETH и 10% сверху в Swap токенах.</p>
+							<p>Пожалуйста, используйте этот способ только в случае крайней необходимости. Мы вам доверяем.</p>
+						</div>
+					</div>
+				</footer>
+			</article>
+			<article class="form-step-3" id="form-step-3">
+				<header>
+					<h1>Шаг 3 из 3</h1>
+					<h2>Подтверждение</h2>
+					<em></em>
+				</header>
+				<div class="form-result-page">
+					<h3>Проверьте, всё ли корректно</h3>			
+					<h4>Вы сделали работу:</h4>
+					<ul class="result-work-holder" id="form-preview-work">
+						<li class="result-work-templ"></li>
+					</ul>
+					<h4>Итого вы сделали работ на <em data-target="total-money">$####</em></h4>
+					<span>Вы указали, что хотите получить <em data-target="token-percent">##%</em> оплаты в Swap токенах.</span>
+					<h4>Это значит, что:</h4>
+					<span><em data-target="eth-total">$###</em> мы отправим вам в Эфире</span>
+					<span><em data-target="token-total">$###</em> мы отправим вам в Swap токенах</span>
+					<div class="result-price-rows">
+						<div class="result-price-eth">
+							<strong><em data-target="eth-total">$###</em> = <em data-target="eth-count">##</em> ETH</strong>
+							<span>По текущему курсу</span>
+							<span>1 ETH = <em data-target="eth-price">$###</em></span>
+							<span>Данные <a href="https://coinmarketcap.com/" target="_blank">coinmarketcap</a></span>
+						</div>
+						<div class="result-price-token">
+							<strong><em data-target="token-total">$###</em> = <em data-target="token-count">###</em> Swap токенов</strong>
+							<span>На основании вашей оценки 1 Swap = $<em data-target="token-price">#</em></span>
+						</div>
+					</div>
+					<h4>Ваш Ethereum адрес</h4>
+					<input type="text" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+					<span class="result-warning">Не указывайте Ethereum-адреса бирж, таких как ETH banker и прочее. Токены туда не придут.</span>
+					<h4>Мы рекомендуем использовать <a href="https://metamask.io/" target="_blank">metamask.io</a></h4>
+				</div>
+				<footer>
+					<div class="form-two-button">
+						<a href="#" class="form-button form-button-style-2" id="go-to-step-1">Исправить</a>
+						<a href="#" class="form-button" id="go-to-finish">Всё верно</a>
+					</div>
+					<div class="form-tooltip">
+						<a href="#">Как обменять эфир на рубли</a>
+						<input type="checkbox" />
+						<div>
+							<p>Отправьте ETH с вашего Ethereum кошелька (например, Матамакс) боту в Телеграм <a href="tg://resolve?domain=ETH_CHANGE_BOT">@ETH_CHANGE_BOT</a>.</p>
+							<p>Бот помогает обменивать ETH на рубли и не только.</p>
+						</div>
+					</div>
+				</footer>
+			</article>
+			<article class="form-finish" id="form-finish">
+				<em class="finish-icon"></em>
+				<h1>Ваш счёт выставлен</h1>
+				<h2>Для ускорения процесса оплаты напишите в Telegram <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a></h2>
+				<h1>Вы получите:</h1>
+				<div class="ready-money">
+					<div class="money-eth">
+						<strong data-target="eth-count">#####</strong>
+						<span>ETH</span>
+					</div>
+					<div class="money-token">
+						<strong data-target="token-count">#####</strong>
+						<span>SWAP.TOKENS</span>
+					</div>
+					<div class="money-clear"></div>
+					<div class="money-decor"></div>
+					<div class="money-dollar">
+						<strong data-target="total-money">$ ####</strong>
+					</div>
+				</div>
+				<footer></footer>
+			</article>
+			<script type="text/javascript" src="./assets/js/main.js"></script>
+		</section>
+	</div>
+</body>
+</html>

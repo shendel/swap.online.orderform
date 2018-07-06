@@ -175,6 +175,9 @@ $(document).ready ( function () {
 			}
 		},
 		isChecksumAddress : function (address) {
+			if (sha3===undefined) {
+				return (address.length>0) ? true : false;
+			}
 			// Check each case
 			address = address.replace('0x','');
 			var addressHash = sha3(address.toLowerCase());

@@ -175,25 +175,40 @@ $(document).ready ( function () {
 			}
 		},
 		isChecksumAddress : function (address) {
-			if (sha3===undefined) {
-				return (address.length>0) ? true : false;
-			}
-			// Check each case
-			address = address.replace('0x','');
-			var addressHash = sha3(address.toLowerCase());
-			for (var i = 0; i < 40; i++ ) {
-				// the nth letter should be uppercase if the nth digit of casemap is 1
-				if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
-					return false;
+			try {
+				// Check each case
+				address = address.replace('0x','');
+				var addressHash = sha3(address.toLowerCase());
+				for (var i = 0; i < 40; i++ ) {
+					// the nth letter should be uppercase if the nth digit of casemap is 1
+					if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
+						return false;
+					}
 				}
-			}
-			return true;
+				return true;
+			} catch (e) { return true }
 		}
 	};
 	
 	var _round_float = function (value, precision) {
 		var multiplier = Math.pow(10, precision || 0);
 		return Math.round(value * multiplier) / multiplier;
+	};
+	var _scroll_to_swap = function () {
+		var _real_offset = 0;
+		$.each($('#swap-online-form UL.other-capitalize LI'), function (i,item) {
+			var $item = $(item);
+			if (!$(item).hasClass('swap-online')) {
+				_real_offset = _real_offset + $(item).outerHeight(true);
+			} else {
+				_real_offset = _real_offset + $(item).outerHeight(true)*3;
+				return false;
+			}
+		});
+		
+		$('#swap-online-form UL.other-capitalize').stop().animate({
+			scrollTop: _real_offset*_scale
+		}, 500 );
 	};
 	( function () {
 		var _is_rolling = false;
@@ -224,6 +239,12 @@ $(document).ready ( function () {
 			var _per_pixel = _offset / _scroller.width();
 			var _current = _per_pixel * new_offset;
 			_current = parseFloat(_current.toFixed(_round));
+			if (_current<=1) {
+				$('#we-can-buy-your-tokens').removeClass('-hidden');
+			} else {
+				$('#we-can-buy-your-tokens').addClass('-hidden');
+			}
+				
 			_input.val(_current);
 			if (new_offset===0) _current = _min;
 			if (new_offset===_scroller.width()) _current = _max;
@@ -244,6 +265,8 @@ $(document).ready ( function () {
 			if (!_sorted) {
 				$('#swap-online-form UL.other-capitalize').append($('#swap-online-form UL.other-capitalize LI.swap-online'));
 			}
+			/* Roll to swap.online */
+			
 			
 			_roller_info.html(_current+'$');
 		};
@@ -258,34 +281,48 @@ $(document).ready ( function () {
 			var _roller_pos = _scroller.width() / (_max-_min) * value;
 			_update_roller(_roller_pos);
 		};
-		_roller.bind('mousedown', function(e) {
-			e.preventDefault();
+		var _roller_mousedown = function(e) {
+			
+			if (e.type!="touchstart") e.preventDefault();
 			if ($('BODY').hasClass('has-form-scale')) {
 				_scale = _has_scale;
 			} else {
 				_scale = 1;
 			}
 			_is_rolling = true;
-		} );
-		_scroller.bind('click', function (e) {
+		};
+		var _roller_click = function (e) {
 			if (!$(e.target).hasClass('form-input-roller-button')
 				&& !$(e.target).parents('.form-input-roller-button').length
 			) {
 				_update_roller(e.offsetX);
 			}
-		} );
-		$(document).bind('mousemove', function (e) {
+		};
+		var _roller_move = function (e) {
+			
 			if (_is_rolling) {
-				e.preventDefault();
-				var _new_left = e.pageX - _scroller.offset().left
+				if (e.type!="touchmove") e.preventDefault();
+				var _new_left = ((e.type!="touchmove") ? e.pageX : e.touches[0].pageX ) - _scroller.offset().left
 				if (_new_left<0) { _new_left = 0; };
 				if (_new_left>_scroller.width()*_scale) { _new_left = _scroller.width()*_scale ; };
 				_update_roller(_new_left/_scale);
 			}
-		} );
-		$(document).bind('mouseup', function (e) {
+		};
+		var _roller_mouseup = function (e) {
+			if (_is_rolling) {
+				_scroll_to_swap();
+			};
 			_is_rolling = false;
-		} );
+				
+		};
+		_roller.bind('mousedown', _roller_mousedown );
+		_roller.bind('touchstart', _roller_mousedown );
+		_scroller.bind('click', _roller_click );
+		$(document).bind('mousemove', _roller_move );
+		$(document).bind('touchmove', _roller_move );
+		$(document).bind('mouseup', _roller_mouseup );
+		$(document).bind('touchend', _roller_mouseup );
+		$(document).bind('touchcancel', _roller_mouseup );
 	} )();
 	/* Scale height fix */
 	var _scale_height_fix = function () {
@@ -459,6 +496,7 @@ $(document).ready ( function () {
 			$('#form-step-2').addClass('active');
 			$('BODY').attr('data-step','2');
 			_scroll_to_top();
+			_scroll_to_swap();
 			_scale_height_fix();
 			/* roller update */
 			$('#input-token-price')[0].setRate(_token_price);

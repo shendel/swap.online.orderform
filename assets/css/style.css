@@ -147,6 +147,9 @@ SECTION.form-wrapper>ARTICLE>FOOTER {
 	-webkit-border-bottom-left-radius: 8px;
 	border-bottom-left-radius: 8px;
 }
+SECTION.form-wrapper P#we-can-buy-your-tokens.-hidden {
+	display: none;
+}
 SECTION.form-wrapper A.form-button {
 	display: inline-block;
 	height: 86px;

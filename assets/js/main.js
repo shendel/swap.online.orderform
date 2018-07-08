@@ -96,7 +96,7 @@ $(document).ready ( function () {
 			e.preventDefault();
 			var holder = $($(e.target).parents('DIV.form-input-droplist')[0]);
 			holder.find('INPUT[type="text"]').val($(e.target).data('value'));
-			holder.find('INPUT[type="checkbox"]')[0].checked = false;
+			holder.find('INPUT[type="checkbox"]').prop('checked',false);
 		} );
 	} )();
 	( function () {
@@ -327,7 +327,7 @@ $(document).ready ( function () {
 	/* Checkbox */
 	$(document).delegate('DIV.form-checkbox INPUT','change', function (e) {
 		var $h = $(e.target).parent();
-		if (e.target.checked) {
+		if ($(e.target).prop('checked')) {
 			$($h.find('LABEL[data-state="off"]')).hide();
 			$($h.find('LABEL[data-state="on"]')).show();
 		} else {
@@ -337,7 +337,7 @@ $(document).ready ( function () {
 	} );
 	$(document).delegate('DIV.form-checkbox LABEL','click', function (e) {
 		var c = $($(e.target).parent().find('INPUT')[0]);
-		c[0].checked = !c[0].checked;
+		c.prop('checked',!c.prop('checked'));
 		c.trigger('change');
 	} );
 	/* - Checkbox */
@@ -390,7 +390,7 @@ $(document).ready ( function () {
 		$('#form-input-token-address').val(_cookie.get("tokenAddress",""));
 		if ($('#form-input-eth-address').val()==$('#form-input-token-address').val()) {
 			if ($('#form-input-eth-address').val().length) {
-				$('#form-input-eth-token-equal')[0].checked = true;
+				$('#form-input-eth-token-equal').prop('checked',true);
 				$('#for-token-address').addClass('hidden');
 			}
 		};
@@ -473,7 +473,7 @@ $(document).ready ( function () {
 		_convert_dollar_to_eth();
 	} );
 	$('#form-input-eth-token-equal').bind('change', function (e) {
-		if ($('#form-input-eth-token-equal')[0].checked) {
+		if ($('#form-input-eth-token-equal').prop("checked")) {
 			$('#for-token-address').addClass('hidden');
 		} else {
 			$('#for-token-address').removeClass('hidden');
@@ -579,7 +579,7 @@ $(document).ready ( function () {
 			$('#form-input-eth-address').addClass('has-error');
 			has_error = true;
 		};
-		if ($('#form-input-eth-token-equal')[0].checked) {
+		if ($('#form-input-eth-token-equal').val()=="off") {
 			if(!_eth_helper.isAddress($('#form-input-token-address').val())) {
 				$('#form-input-token-address').addClass('has-error');
 				has_error = true;
@@ -591,7 +591,7 @@ $(document).ready ( function () {
 		if (!_token_address.length) {
 			_token_address = _eth_address;
 		};
-		if ($('#form-input-eth-token-equal')[0].checked) {
+		if ($('#form-input-eth-token-equal').prop('checked')) {
 			_token_address = _eth_address;
 		}
 		$('#form-step-3').removeClass('active');

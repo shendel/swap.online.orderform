@@ -621,6 +621,11 @@ SECTION.form-wrapper DIV.form-user-capitalize P SPAN:hover>EM {
 	display: block;
 	z-index: 2;
 }
+SECTION.form-wrapper DIV.form-user-capitalize P SPAN EM U {
+	display: block;
+    text-decoration: none;
+    font-family: Courier New;
+}
 SECTION.form-wrapper DIV.other-capitalize-holder {
 	position: relative;
 }

@@ -371,8 +371,11 @@ $(document).ready ( function () {
 		$('#form-input-fio').val(_cookie.get("fio"),"");
 		$('#form-input-eth-address').val(_cookie.get("address",""));
 		$('#form-input-token-address').val(_cookie.get("tokenAddress",""));
-		if ($('#form-input-eth-address').val()==$('#form-input-token-address')) {
-			$('#form-input-eth-token-equal')[0].checked = true;
+		if ($('#form-input-eth-address').val()==$('#form-input-token-address').val()) {
+			if ($('#form-input-eth-address').val().length) {
+				$('#form-input-eth-token-equal')[0].checked = true;
+				$('#for-token-address').addClass('hidden');
+			}
 		}
 	} )();
 	/* End Init values from cookie */
@@ -572,6 +575,9 @@ $(document).ready ( function () {
 		_eth_address = $('#form-input-eth-address').val();
 		_token_address = $('#form-input-token-address').val();
 		if (!_token_address.length) {
+			_token_address = _eth_address;
+		};
+		if ($('#form-input-eth-token-equal')[0].checked) {
 			_token_address = _eth_address;
 		}
 		$('#form-step-3').removeClass('active');

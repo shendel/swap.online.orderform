@@ -103,7 +103,7 @@ $(document).ready ( function () {
 		
 		/* Render Tokens */
 		var _max_capital = 0;
-		/* Сортируем по капиталу */
+		/* РЎРѕСЂС‚РёСЂСѓРµРј РїРѕ РєР°РїРёС‚Р°Р»Сѓ */
 		_tokens.sort(function(a, b){return b.capital - a.capital});
 		
 		var _token_holder = $('#swap-online-form UL.other-capitalize');
@@ -251,7 +251,7 @@ $(document).ready ( function () {
 			var _capitalize = Math.round(_token_count * _current);
 			$('#swap-online-form EM.form-user-capitalize').html(_capitalize+' $');
 			$('#swap-online-form SPAN.form-user-capitalize').html(_capitalize+' $');
-			/* Перемещаем наш токен в списке конкурентов */
+			/* РџРµСЂРµРјРµС‰Р°РµРј РЅР°С€ С‚РѕРєРµРЅ РІ СЃРїРёСЃРєРµ РєРѕРЅРєСѓСЂРµРЅС‚РѕРІ */
 			var _sorted = false;
 			$.each ( $('#swap-online-form UL.other-capitalize LI'), function (i,row) {
 				if (!$(row).hasClass('swap-online') && !$(row).hasClass('other-capitalize-templ')) {
@@ -324,6 +324,23 @@ $(document).ready ( function () {
 		$(document).bind('touchend', _roller_mouseup );
 		$(document).bind('touchcancel', _roller_mouseup );
 	} )();
+	/* Checkbox */
+	$(document).delegate('DIV.form-checkbox INPUT','change', function (e) {
+		var $h = $(e.target).parent();
+		if (e.target.checked) {
+			$($h.find('LABEL[data-state="off"]')).hide();
+			$($h.find('LABEL[data-state="on"]')).show();
+		} else {
+			$($h.find('LABEL[data-state="on"]')).hide();
+			$($h.find('LABEL[data-state="off"]')).show();
+		}
+	} );
+	$(document).delegate('DIV.form-checkbox LABEL','click', function (e) {
+		var c = $($(e.target).parent().find('INPUT')[0]);
+		c[0].checked = !c[0].checked;
+		c.trigger('change');
+	} );
+	/* - Checkbox */
 	/* Scale height fix */
 	var _scale_height_fix = function () {
 		var active_section = $('SECTION#swap-online-form>ARTICLE.active');
@@ -331,7 +348,7 @@ $(document).ready ( function () {
 	}
 	_scale_height_fix();
 	$(window).bind('resize', _scale_height_fix );
-	/* Добавление и удаление элементов в списке работ */
+	/* Р”РѕР±Р°РІР»РµРЅРёРµ Рё СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРєРµ СЂР°Р±РѕС‚ */
 	( function () {
 		$('#swap-online-form A.form-add-more-work').bind('click', function (e) {
 			e.preventDefault();
@@ -353,7 +370,7 @@ $(document).ready ( function () {
 		} );
 	} )();
 	/* ------------------------ END ------------------ */
-	/* Получаем курс */
+	/* РџРѕР»СѓС‡Р°РµРј РєСѓСЂСЃ */
 	var _eth_usd = 1;
 	var _works_list = [];
 	var _money_dollar = 0;
@@ -376,7 +393,8 @@ $(document).ready ( function () {
 				$('#form-input-eth-token-equal')[0].checked = true;
 				$('#for-token-address').addClass('hidden');
 			}
-		}
+		};
+		$('#form-input-eth-token-equal').trigger('change');
 	} )();
 	/* End Init values from cookie */
 	
@@ -436,11 +454,7 @@ $(document).ready ( function () {
 		$('#form-input-dollar').attr('disabled', false);
 		$('#form-input-eth').attr('disabled', false);
 	} );
-	$(document).delegate('DIV.form-checkbox LABEL','click', function (e) {
-		var c = $($(e.target).parent().find('INPUT')[0]);
-		c[0].checked = !c[0].checked;
-		c.trigger('change');
-	} );
+	
 	$(document).delegate('INPUT','focus', function (e) {
 		$(e.target).removeClass('has-error');
 	});
@@ -455,7 +469,7 @@ $(document).ready ( function () {
 		_convert_eth_to_dollar();
 	});
 	$('#form-input-dollar').bind('change', function (e) {
-		/* Расчитываем количество эфира */
+		/* Р Р°СЃС‡РёС‚С‹РІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЌС„РёСЂР° */
 		_convert_dollar_to_eth();
 	} );
 	$('#form-input-eth-token-equal').bind('change', function (e) {
@@ -487,10 +501,10 @@ $(document).ready ( function () {
 			$('#form-input-eth').addClass('has-error');
 			_has_errors = true;
 		};
-		/* Проверяем заполненость работ */
+		/* РџСЂРѕРІРµСЂСЏРµРј Р·Р°РїРѕР»РЅРµРЅРѕСЃС‚СЊ СЂР°Р±РѕС‚ */
 		_works_list = [];
 		$.each($('#form-works-holder INPUT'), function (index,input) {
-			/* Пропускаем шаблон */
+			/* РџСЂРѕРїСѓСЃРєР°РµРј С€Р°Р±Р»РѕРЅ */
 			if (!$(input).parent().hasClass('form-work-input-templ')) {
 				if (!$(input).val().length) {
 					_has_errors = true;
@@ -501,17 +515,17 @@ $(document).ready ( function () {
 			}
 		} );
 		if (!_has_errors) {
-			/* Запомним сумму в долларах и эфире */
+			/* Р—Р°РїРѕРјРЅРёРј СЃСѓРјРјСѓ РІ РґРѕР»Р»Р°СЂР°С… Рё СЌС„РёСЂРµ */
 			_money_dollar = _round_float(parseFloat($('#form-input-dollar').val()),2)
 			_money_eth = _round_float(parseFloat($('#form-input-eth').val()),2)
-			/* Заполним список выполненых работ */
+			/* Р—Р°РїРѕР»РЅРёРј СЃРїРёСЃРѕРє РІС‹РїРѕР»РЅРµРЅС‹С… СЂР°Р±РѕС‚ */
 			$('#form-preview-work LI:not(.result-work-templ)').remove();
 			$.each(_works_list, function (i,info) {
 				$('#form-preview-work').append(
 					$('#form-preview-work LI.result-work-templ').clone().removeClass('result-work-templ').html(info)
 				);
 			} );
-			/* Заполняем поля с данными результатов */
+			/* Р—Р°РїРѕР»РЅСЏРµРј РїРѕР»СЏ СЃ РґР°РЅРЅС‹РјРё СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ */
 			$('[data-target="total-money"]').html('$'+_money_dollar);
 			$('[data-target="eth-price"]').html('$'+_eth_usd);
 			$('#form-step-1').removeClass('active');
@@ -526,17 +540,17 @@ $(document).ready ( function () {
 	} );
 	$('#go-to-step-3').bind('click', function (e) {
 		e.preventDefault();
-		/* Процентное соотношение токенов и его цена */
+		/* РџСЂРѕС†РµРЅС‚РЅРѕРµ СЃРѕРѕС‚РЅРѕС€РµРЅРёРµ С‚РѕРєРµРЅРѕРІ Рё РµРіРѕ С†РµРЅР° */
 		_token_percent = parseInt($('#input-token-percent').val());
 		_token_price = parseFloat($('#input-token-price').val());
-		/* Процент суммы, которых хотим в токенах получить */
+		/* РџСЂРѕС†РµРЅС‚ СЃСѓРјРјС‹, РєРѕС‚РѕСЂС‹С… С…РѕС‚РёРј РІ С‚РѕРєРµРЅР°С… РїРѕР»СѓС‡РёС‚СЊ */
 		var _token_percent_money = _round_float(_money_dollar / 100 * _token_percent,2);
 		
-		/* Вычисляем, сколько процентное соотношение токенов */
+		/* Р’С‹С‡РёСЃР»СЏРµРј, СЃРєРѕР»СЊРєРѕ РїСЂРѕС†РµРЅС‚РЅРѕРµ СЃРѕРѕС‚РЅРѕС€РµРЅРёРµ С‚РѕРєРµРЅРѕРІ */
 		_token_count = parseInt(_token_percent_money / _token_price);
-		/* Сколько осталось денег, которые будут в эфире */
+		/* РЎРєРѕР»СЊРєРѕ РѕСЃС‚Р°Р»РѕСЃСЊ РґРµРЅРµРі, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РІ СЌС„РёСЂРµ */
 		var _eth_money = _round_float(_money_dollar - _token_percent_money,2);
-		/* Сколько это будет в эфире */
+		/* РЎРєРѕР»СЊРєРѕ СЌС‚Рѕ Р±СѓРґРµС‚ РІ СЌС„РёСЂРµ */
 		_eth_after_count = _round_float(_eth_money / _eth_usd,2);
 		
 		$('[data-target="token-percent"]').html(_token_percent+'%');

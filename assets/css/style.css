@@ -1012,8 +1012,14 @@ SECTION.form-wrapper DIV.form-checkbox {
 	padding-bottom: 10px;
 	line-height: 64px;
 }
+SECTION.form-wrapper DIV.form-checkbox::after {
+	display: block;
+	content: '';
+	clear: both;
+}
 SECTION.form-wrapper DIV.form-checkbox INPUT[type="checkbox"] {
-	display: inline-block;
+	display: block;
+	float: left;
 	position: relative;
 	width: 64px;
 	height: 64px;
@@ -1041,10 +1047,16 @@ SECTION.form-wrapper DIV.form-checkbox INPUT[type="checkbox"]:checked::after {
 	background-color: #FFFFFF;
 }
 SECTION.form-wrapper DIV.form-checkbox LABEL {
+	display: block;
 	color: #2a1150;
 	font-size: 18pt;
 	padding-left: 10px;
 	vertical-align:middle;
+	margin-left: 70px;
+	
+}
+SECTION.form-wrapper DIV#for-token-address {
+	padding-top: 10px;
 }
 SECTION.form-wrapper DIV#for-token-address.hidden {
 	display: none;

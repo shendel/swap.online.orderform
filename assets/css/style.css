@@ -203,6 +203,7 @@ HEADER.main SPAN {
 	color: #bd9bf2;
 	padding-left: 35px;
 	padding-right: 35px;
+	text-align: center;
 }
 HEADER.main DIV {
 	display: none;
@@ -214,9 +215,11 @@ HEADER.main DIV {
 	border-radius: 5px;
 	position: relative;
 	margin-top: 20px;
+	text-align: left;
 }
 BODY[data-step="1"] HEADER.main DIV {
 	display: block;
+	
 }
 BODY[data-step="3"] HEADER.main SPAN,
 BODY[data-step="finish"] HEADER.main SPAN {
@@ -662,15 +665,15 @@ SECTION.form-wrapper UL.other-capitalize LI {
 }
 SECTION.form-wrapper UL.other-capitalize LI>U {
 	display: block;
-	width: 86px;
-	height: 86px;
+	width: 82px;
+	height: 82px;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	bottom: 0px;
+	bottom: 2px;
 	background: url(../img/tokens/swap_online.png) no-repeat;
 	background-position: 50% 50%;
 }
@@ -818,17 +821,21 @@ SECTION.form-wrapper DIV.form-result-page {
 }
 SECTION.form-wrapper DIV.form-result-page H3 {
 	font-size: 22pt;
-	color: #2a1150;
-	padding-bottom: 15px;
-	padding-top: 15px;
+    color: #2a1150;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    font-weight: bold;
 }
 SECTION.form-wrapper DIV.form-result-page H4 {
 	color: #2a1150;
-	font-size: 18pt;
-	padding-bottom: 10px;
+    font-size: 16pt;
+    padding-bottom: 10px;
+    font-weight: bold;
+    padding-top: 10px;
 }
 SECTION.form-wrapper DIV.form-result-page EM {
 	font-style: normal;
+	font-weight: bold;
 }
 SECTION.form-wrapper UL.result-work-holder {
 	padding-bottom: 10px;
@@ -856,7 +863,7 @@ SECTION.form-wrapper DIV.form-result-page SPAN,
 SECTION.form-wrapper DIV.form-result-page STRONG {
 	display: block;
 	color: #9a88b5;
-	font-size: 18pt;
+	font-size: 16pt;
 	padding-bottom: 10px;
 	font-weight: normal;
 }

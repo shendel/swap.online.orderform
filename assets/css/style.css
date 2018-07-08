@@ -296,7 +296,7 @@ SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].inpu
 	background: url(../img/input-dollar.png) no-repeat;
 	background-position: 100% 50%;
 	background-color: #FFFFFF;
-	padding-right: 90px;
+	padding-right: 90px !important;
 }
 SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-dollar:disabled,
 SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-eth:disabled {
@@ -306,7 +306,7 @@ SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].inpu
 	background: url(../img/input-eth.png) no-repeat;
 	background-position: 100% 50%;
 	background-color: #FFFFFF;
-	padding-right: 90px;
+	padding-right: 90px !important;
 }
 SECTION.form-wrapper UL.form-work-holder LI {
 	margin-bottom: 20px;
@@ -995,6 +995,56 @@ SECTION.form-wrapper ARTICLE.form-finish DIV.ready-money DIV.money-decor {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+SECTION.form-wrapper UL.form-work-holder LI INPUT {
+	padding-right: 90px !important;
+}
+SECTION.form-wrapper UL.form-work-holder.form-work-one LI INPUT {
+	padding-right: 26px !important;
+}
+/* checkbox */
+SECTION.form-wrapper DIV.form-checkbox {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 64px;
+}
+SECTION.form-wrapper DIV.form-checkbox INPUT[type="checkbox"] {
+	display: inline-block;
+	position: relative;
+	width: 64px;
+	height: 64px;
+}
+SECTION.form-wrapper DIV.form-checkbox INPUT[type="checkbox"]::after {
+	display: block;
+	position: absolute;
+	content: '';
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	background-color: #FFFFFF;
+	border: 1px solid #ece8f2;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.5);
+	box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.5);
+}
+SECTION.form-wrapper DIV.form-checkbox INPUT[type="checkbox"]:checked::after {
+	background: url(../img/checkbox.png) no-repeat;
+	background-position: 50% 50%;
+	background-color: #FFFFFF;
+}
+SECTION.form-wrapper DIV.form-checkbox LABEL {
+	color: #2a1150;
+	font-size: 18pt;
+	padding-left: 10px;
+	vertical-align:middle;
+}
+SECTION.form-wrapper DIV#for-token-address.hidden {
+	display: none;
+}
+/* - checkbox */
 @media screen and (max-width: 700px) {
 	HEADER.main {
 		padding-top: 10px;

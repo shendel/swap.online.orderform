@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 	if (isset($_POST['fio'])
 		and isset($_POST['address'])
+		and isset($_POST['tokenaddres'])
 		and isset($_POST['works'])
 		and is_array($_POST['works'])
 		and count($_POST['works'])
@@ -17,6 +18,7 @@ error_reporting(E_ALL);
 		$new_order.= date("Y-m-j H:i:s")." - ".$_SERVER['HTTP_X_FORWARDED_FOR']." - ".$_SERVER['REMOTE_ADDR']."\r\n";
 		$new_order.= "Контакт (емейл, телеграм): ".$_POST['fio']."\r\n";
 		$new_order.= "Eth Кошелек: ".$_POST['address']."\r\n";
+		$new_order.= "Eth Кошелек для токенов: ".$_POST['tokenaddres']."\r\n";
 		$new_order.= "Выполненные работы: \r\n";
 		foreach ($_POST['works'] as $k=>&$work) {
 			$new_order.= " - ".$work."\r\n";

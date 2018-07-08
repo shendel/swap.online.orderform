@@ -112,16 +112,12 @@
 					</div>
 					
 				</div>
-				<div class="form-description">
-					<p><strong>Всего будет выпущено 21 миллион SWAP токенов</strong>, которые будут торговаться на <a href="https://swap.online/" target="_blank">swap.online</a>.</p>
-					<p>Swap токены нужны пользователям для повышения своего рейтинга в системе, оплаты услуг Swap.Online (повышение лимитов, залог для маркетмейкеров), расчетов между собой.</p>
-				</div>
 				<div class="form-row">
 					<div class="form-user-capitalize">
 						<p>Вы оценили капитализацию swap.online в <em class="form-user-capitalize">#### $</em> 
 						<span>
 							<strong></strong>
-							<em>Rапитализация = Количество токенов умножить на цену одного токена</em>
+							<em>Капитализация = Количество токенов умножить на цену одного токена</em>
 						</span>
 					</div>
 					<div class="other-capitalize-holder">
@@ -140,6 +136,10 @@
 							</li>
 						</ul>
 					</div>
+				</div>
+				<div class="form-description">
+					<p><strong>Всего будет выпущено 21 миллион SWAP токенов</strong>, которые будут торговаться на <a href="https://swap.online/" target="_blank">swap.online</a>.</p>
+					<p>Swap токены нужны пользователям для повышения своего рейтинга в системе, оплаты услуг Swap.Online (повышение лимитов, залог для маркетмейкеров), расчетов между собой.</p>
 				</div>
 				<footer>
 					
@@ -186,6 +186,14 @@
 					</div>
 					<h4>Ваш Ethereum адрес</h4>
 					<input type="text" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+					<div class="form-checkbox">
+						<input type="checkbox" checked id="form-input-eth-token-equal" />
+						<label>Совпадает с ETH-кошельком для Токенов</label>
+					</div>
+					<div id="for-token-address" class="hidden">
+						<h4>Ваш Ethereum адрес для токенов</h4>
+						<input type="text" class="form-input-text" id="form-input-token-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+					</div>
 					<span class="result-warning">Не указывайте Ethereum-адреса бирж, таких как ETH banker и прочее. Токены туда не придут.</span>
 					<h4>Мы рекомендуем использовать <a href="https://metamask.io/" target="_blank">metamask.io</a></h4>
 				</div>

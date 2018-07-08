@@ -363,11 +363,17 @@ $(document).ready ( function () {
 	var _token_count = 0;
 	var _eth_after_count = 0;
 	var _eth_address = "";
+	var _token_address = "";
+	
 	/* Init Values from cookie */
 	(function () {
 		$('#input-token-percent').val(_cookie.get("tokenPercent",10)+'%');
 		$('#form-input-fio').val(_cookie.get("fio"),"");
 		$('#form-input-eth-address').val(_cookie.get("address",""));
+		$('#form-input-token-address').val(_cookie.get("tokenAddress",""));
+		if ($('#form-input-eth-address').val()==$('#form-input-token-address')) {
+			$('#form-input-eth-token-equal')[0].checked = true;
+		}
 	} )();
 	/* End Init values from cookie */
 	
@@ -427,6 +433,11 @@ $(document).ready ( function () {
 		$('#form-input-dollar').attr('disabled', false);
 		$('#form-input-eth').attr('disabled', false);
 	} );
+	$(document).delegate('DIV.form-checkbox LABEL','click', function (e) {
+		var c = $($(e.target).parent().find('INPUT')[0]);
+		c[0].checked = !c[0].checked;
+		c.trigger('change');
+	} );
 	$(document).delegate('INPUT','focus', function (e) {
 		$(e.target).removeClass('has-error');
 	});
@@ -443,6 +454,14 @@ $(document).ready ( function () {
 	$('#form-input-dollar').bind('change', function (e) {
 		/* Расчитываем количество эфира */
 		_convert_dollar_to_eth();
+	} );
+	$('#form-input-eth-token-equal').bind('change', function (e) {
+		if ($('#form-input-eth-token-equal')[0].checked) {
+			$('#for-token-address').addClass('hidden');
+		} else {
+			$('#for-token-address').removeClass('hidden');
+		};
+		_scale_height_fix();
 	} );
 	$('#form-go-to-step-2').bind('click', function (e) {
 		e.preventDefault();
@@ -538,12 +557,23 @@ $(document).ready ( function () {
 	} );
 	$('#go-to-finish').bind('click', function (e) {
 		e.preventDefault();
-		
+		var has_error = false;
 		if (!_eth_helper.isAddress($('#form-input-eth-address').val())) {
 			$('#form-input-eth-address').addClass('has-error');
-			return;
+			has_error = true;
 		};
+		if ($('#form-input-eth-token-equal')[0].checked) {
+			if(!_eth_helper.isAddress($('#form-input-token-address').val())) {
+				$('#form-input-token-address').addClass('has-error');
+				has_error = true;
+			}
+		};
+		if (has_error) return;
 		_eth_address = $('#form-input-eth-address').val();
+		_token_address = $('#form-input-token-address').val();
+		if (!_token_address.length) {
+			_token_address = _eth_address;
+		}
 		$('#form-step-3').removeClass('active');
 		$('#form-finish').addClass('active');
 		$('BODY').attr('data-step','finish');
@@ -554,10 +584,12 @@ $(document).ready ( function () {
 		_cookie.set("fio",$('#form-input-fio').val());
 		_cookie.set("tokenPrice",_token_price);
 		_cookie.set("address",_eth_address);
+		_cookie.set("tokenAddress",_token_address);
 		/* End Save cookie */
 		var _order_data = {
 			fio : $('#form-input-fio').val(),
 			address : _eth_address,
+			tokenaddres : _token_address,
 			works : _works_list,
 			token_price : _token_price,
 			token_percent : _token_percent,

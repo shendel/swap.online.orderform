@@ -99,6 +99,11 @@ $(document).ready ( function () {
 			holder.find('INPUT[type="checkbox"]').prop('checked',false);
 		} );
 	} )();
+	var numberWithSpaces = function(x) {
+		var parts = x.toString().split(".");
+		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+		return parts.join(".");
+	};
 	( function () {
 		
 		/* Render Tokens */
@@ -119,7 +124,7 @@ $(document).ready ( function () {
 				_token_row.addClass('-no-icon');
 			}
 			$(_token_row.find('>STRONG')).html(token.title);
-			$(_token_row.find('>SPAN')).html((token.calced_capital)+' $');
+			$(_token_row.find('>SPAN')).html((numberWithSpaces(token.calced_capital))+' $');
 			$(_token_row).data('capital',token.calced_capital);
 			_token_holder.append(_token_row);
 		} );
@@ -249,8 +254,8 @@ $(document).ready ( function () {
 			if (new_offset===0) _current = _min;
 			if (new_offset===_scroller.width()) _current = _max;
 			var _capitalize = Math.round(_token_count * _current);
-			$('#swap-online-form EM.form-user-capitalize').html(_capitalize+' $');
-			$('#swap-online-form SPAN.form-user-capitalize').html(_capitalize+' $');
+			$('#swap-online-form EM.form-user-capitalize').html(numberWithSpaces(_capitalize)+' $');
+			$('#swap-online-form SPAN.form-user-capitalize').html(numberWithSpaces(_capitalize)+' $');
 			/* Перемещаем наш токен в списке конкурентов */
 			var _sorted = false;
 			$.each ( $('#swap-online-form UL.other-capitalize LI'), function (i,row) {

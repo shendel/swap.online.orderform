@@ -596,7 +596,7 @@ $(document).ready ( function () {
 		if (!_token_address.length) {
 			_token_address = _eth_address;
 		};
-		if ($('#form-input-eth-token-equal').val()=="on") {
+		if ($('#form-input-eth-token-equal').prop("checked")==true) {
 			_token_address = _eth_address;
 			if (!confirm($('P.confirm-answer').html())) {
 				return;

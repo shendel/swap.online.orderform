@@ -394,10 +394,10 @@ $(document).ready ( function () {
 		$('#form-input-eth-address').val(_cookie.get("address",""));
 		$('#form-input-token-address').val(_cookie.get("tokenAddress",""));
 		if ($('#form-input-eth-address').val()==$('#form-input-token-address').val()) {
-			if ($('#form-input-eth-address').val().length) {
+			/* if ($('#form-input-eth-address').val().length) { */
 				$('#form-input-eth-token-equal').prop('checked',true);
 				$('#for-token-address').addClass('hidden');
-			}
+			/* } */
 		};
 		$('#form-input-eth-token-equal').trigger('change');
 	} )();
@@ -596,8 +596,11 @@ $(document).ready ( function () {
 		if (!_token_address.length) {
 			_token_address = _eth_address;
 		};
-		if ($('#form-input-eth-token-equal').prop('checked')) {
+		if ($('#form-input-eth-token-equal').val()=="on") {
 			_token_address = _eth_address;
+			if (!confirm($('P.confirm-answer').html())) {
+				return;
+			}
 		}
 		$('#form-step-3').removeClass('active');
 		$('#form-finish').addClass('active');

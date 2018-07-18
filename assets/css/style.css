@@ -752,8 +752,8 @@ SECTION.form-wrapper DIV.form-tooltip>DIV {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	bottom: 50px;
-	left: -66px;
-	right: -66px;
+	left: 0px;
+	right: 0px;
 	padding: 20px;
 }
 SECTION.form-wrapper DIV.form-tooltip>DIV::after {
@@ -803,7 +803,7 @@ SECTION.form-wrapper DIV.form-tooltip>INPUT:checked + DIV {
 }
 SECTION.form-wrapper DIV.form-tooltip>DIV>P {
 	color: #FFFFFF;
-	text-align: justify;
+	text-align: left;
 	line-height: 20pt;
 	font-size: 16pt;
 }
@@ -1140,8 +1140,8 @@ P.confirm-answer {
 		line-height: 64px;
 	}
 	SECTION.form-wrapper DIV.form-tooltip>DIV {
-		left: -40px;
-		right: -40px;
+		left: 0px;
+		right: 0px;
 	}
 	SECTION.form-wrapper DIV.result-price-rows>DIV {
 		width: 100%;

@@ -752,9 +752,12 @@ SECTION.form-wrapper DIV.form-tooltip>DIV {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	bottom: 50px;
-	left: 0px;
-	right: 0px;
+	left: -66px;
+	right: -66px;
 	padding: 20px;
+	padding-left: 66px;
+	padding-right: 66px;
+	padding-bottom: 10px;
 }
 SECTION.form-wrapper DIV.form-tooltip>DIV::after {
 	display: block;
@@ -806,6 +809,7 @@ SECTION.form-wrapper DIV.form-tooltip>DIV>P {
 	text-align: left;
 	line-height: 20pt;
 	font-size: 16pt;
+	padding-bottom: 10px;
 }
 SECTION.form-wrapper DIV.form-tooltip>DIV A {
 	color: #e72cb4;
@@ -1140,8 +1144,10 @@ P.confirm-answer {
 		line-height: 64px;
 	}
 	SECTION.form-wrapper DIV.form-tooltip>DIV {
-		left: 0px;
-		right: 0px;
+		left: -40px;
+		right: -40px;
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 	SECTION.form-wrapper DIV.result-price-rows>DIV {
 		width: 100%;

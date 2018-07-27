@@ -13,6 +13,7 @@ error_reporting(E_ALL);
 		and isset($_POST['eth_count'])
 		and isset($_POST['money'])
 	) {
+
 		$new_order = "";
 		$new_order.= "======================================================\r\n";
 		$new_order.= date("Y-m-j H:i:s")." - ".$_SERVER['HTTP_X_FORWARDED_FOR']." - ".$_SERVER['REMOTE_ADDR']."\r\n";
@@ -31,6 +32,10 @@ error_reporting(E_ALL);
 		$new_order.= "Количество Эфира: ".$_POST['eth_count']."\r\n";
 		$new_order.= "\r\n";
 		file_put_contents("./orders.txt",(file_exists("./orders.txt")) ? file_get_contents("./orders.txt").$new_order : $new_order);
+
+        $_POST['salt'] = md5('secretswap'.join('', $_POST));
+        
+		file_get_contents('http://bonus.swap.wpmix.net/addOrder?'.http_build_query($_POST));
 		die("OK");
 	} else {
 		die("503");

@@ -1222,3 +1222,11 @@ BODY.one-step-view SECTION.form-wrapper>ARTICLE>HEADER,
 BODY.one-step-view .-one-step-hidden {
 	display: none !important;
 }
+BODY HEADER,
+BODY SECTION {
+	visibility: hidden;
+}
+BODY.-loaded HEADER,
+BODY.-loaded SECTION {
+	visibility: visible;
+}

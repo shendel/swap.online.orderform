@@ -27,6 +27,9 @@ $(document).ready ( function () {
 		}
 	})();
 	/* end auto step */
+	/* blink off */
+	$('BODY').addClass('-loaded');
+	/* ---------- */
 	var _tokens = [
 		{
 			title : 'IDEX',

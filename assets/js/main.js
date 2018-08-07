@@ -3,10 +3,10 @@ $(document).ready ( function () {
 	(function() {
 		var _allowed_step_jumps = [ 2 ];
 		var _has_query = document.location.href.indexOf("?");
+		var _active_step_ok = false;
 		if (_has_query!==-1) {
 			var _active_step = document.location.href.split("?")[1];
 			var _active_step_p = _active_step.lastIndexOf('step=');
-			var _active_step_ok = false;
 			if (_active_step_p!==-1) {
 				_active_step = _active_step.substr(("step=").length);
 				try {
@@ -20,10 +20,10 @@ $(document).ready ( function () {
 						}
 					}
 				} catch (e) { console.log(e)}
-			};
-			if (!_active_step_ok) {
-				$('.form-step.form-step-1').addClass('active');
-			}
+			};			
+		}
+		if (!_active_step_ok) {
+			$('.form-step.form-step-1').addClass('active');
 		}
 	})();
 	/* end auto step */

@@ -716,6 +716,14 @@ SECTION.form-wrapper UL.other-capitalize LI>EM>U {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
+SECTION.form-wrapper UL.other-capitalize LI>DIV {
+	display: block;
+    position: absolute;
+    left: 87px;
+    top: 52px;
+    font-size: 14pt;
+    color: #2a1150;
+}
 SECTION.form-wrapper UL.other-capitalize LI.swap-online {
 	background: #6213df;
 }
@@ -728,6 +736,9 @@ SECTION.form-wrapper UL.other-capitalize LI.swap-online>EM>U {
 }
 SECTION.form-wrapper UL.other-capitalize LI.swap-online>SPAN {
 	color: #FFFFFF;
+}
+SECTION.form-wrapper UL.other-capitalize LI.swap-online>DIV {
+	color: #FFFFFF !important;
 }
 SECTION.form-wrapper UL.other-capitalize LI.other-capitalize-templ {
 	display: none;

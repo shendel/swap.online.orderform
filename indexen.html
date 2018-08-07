@@ -23,14 +23,14 @@
 		<a href="https://swap.online/" target="_blank" class="logo">SWAP.ONLINE</a>
 		<h1>Swap.Online invoicing form</h1>
 		<span>If you did the work for Swap.Online, fill in the form, and we’ll pay you.</span>
-		<div>
+		<div class="-one-step-hidden">
 			<p>Please read pay policy:</p>
 			<a target="_blank" href="https://wiki.swap.online/pay-policy">https://wiki.swap.online/pay-policy</a>
 		</div>
 	</header>
 	<div id="swap-online-form-holder">
 		<section class="form-wrapper" id="swap-online-form">
-			<article class="form-step-1 active" id="form-step-1">
+			<article class="form-step form-step-1" id="form-step-1">
 				<header>
 					<h1>Step 1 of 3</h1>
 					<h2>Master account</h2>
@@ -68,13 +68,13 @@
 					<a href="#" class="form-button" id="form-go-to-step-2">Next &rarr;</a>
 				</footer>
 			</article>
-			<article class="form-step-2" id="form-step-2">
+			<article class="form-step form-step-2" id="form-step-2">
 				<header>
 					<h1>Step 2 of 3</h1>
 					<h2>Tokens</h2>
 					<em></em>
 				</header>
-				<div class="form-row">
+				<div class="form-row -one-step-hidden">
 					<label>What portion of the amount would you like to get in tokens?</label>
 					<div class="form-input-droplist">
 						<input type="text" disabled="true" id="input-token-percent" value="10%" />
@@ -162,7 +162,7 @@
 					</div>
 				</footer>
 			</article>
-			<article class="form-step-3" id="form-step-3">
+			<article class="form-step form-step-3" id="form-step-3">
 				<header>
 					<h1>Step 3 of 3</h1>
 					<h2>Confirmation</h2>
@@ -222,7 +222,7 @@
 					</div>
 				</footer>
 			</article>
-			<article class="form-finish" id="form-finish">
+			<article class="form-step form-finish" id="form-finish">
 				<em class="finish-icon"></em>
 				<h1>Your invoicing is billed</h1>
 				<h2>The payment will be made soon, for process acceleration please contact <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a></h2>

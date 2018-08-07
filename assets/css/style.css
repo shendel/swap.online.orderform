@@ -1212,3 +1212,13 @@ P.confirm-answer {
 		background-position: 50% 10px;
 	}
 }
+
+
+/* one step view */
+BODY.one-step-view HEADER.main H1,
+BODY.one-step-view HEADER.main SPAN,
+BODY.one-step-view SECTION.form-wrapper>ARTICLE>FOOTER,
+BODY.one-step-view SECTION.form-wrapper>ARTICLE>HEADER,
+BODY.one-step-view .-one-step-hidden {
+	display: none !important;
+}

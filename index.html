@@ -23,14 +23,14 @@
 		<a href="https://swap.online/" target="_blank" class="logo">SWAP.ONLINE</a>
 		<h1>Форма для выставления счетов Swap.Online</h1>
 		<span>Если вы сделали работу для Swap.Online, заполните эту форму, и мы заплатим вам.</span>
-		<div>
+		<div class="-one-step-hidden">
 			<p>Прочитайте политику оплаты:</p>
 			<a target="_blank" href="https://wiki.swap.online/pay-policy">https://wiki.swap.online/pay-policy</a>
 		</div>
 	</header>
 	<div id="swap-online-form-holder">
 		<section class="form-wrapper" id="swap-online-form">
-			<article class="form-step-1 active" id="form-step-1">
+			<article class="form-step form-step-1" id="form-step-1">
 				<header>
 					<h1>Шаг 1 из 3</h1>
 					<h2>Основной счет</h2>
@@ -68,13 +68,13 @@
 					<a href="#" class="form-button" id="form-go-to-step-2">Продолжить &rarr;</a>
 				</footer>
 			</article>
-			<article class="form-step-2" id="form-step-2">
+			<article class="form-step form-step-2" id="form-step-2">
 				<header>
 					<h1>Шаг 2 из 3</h1>
 					<h2>Токены</h2>
 					<em></em>
 				</header>
-				<div class="form-row">
+				<div class="form-row -one-step-hidden">
 					<label>Какую часть суммы вы хотите получить в токенах?</label>
 					<div class="form-input-droplist">
 						<input type="text" disabled="true" id="input-token-percent" value="10%" />
@@ -162,7 +162,7 @@
 					</div>
 				</footer>
 			</article>
-			<article class="form-step-3" id="form-step-3">
+			<article class="form-step form-step-3" id="form-step-3">
 				<header>
 					<h1>Шаг 3 из 3</h1>
 					<h2>Подтверждение</h2>
@@ -222,7 +222,7 @@
 					</div>
 				</footer>
 			</article>
-			<article class="form-finish" id="form-finish">
+			<article class="form-step form-finish" id="form-finish">
 				<em class="finish-icon"></em>
 				<h1>Ваш счёт выставлен</h1>
 				<h2>Для ускорения процесса оплаты напишите в Telegram <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a></h2>

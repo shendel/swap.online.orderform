@@ -1,4 +1,32 @@
 $(document).ready ( function () {
+	/* auto step */
+	(function() {
+		var _allowed_step_jumps = [ 2 ];
+		var _has_query = document.location.href.indexOf("?");
+		if (_has_query!==-1) {
+			var _active_step = document.location.href.split("?")[1];
+			var _active_step_p = _active_step.lastIndexOf('step=');
+			var _active_step_ok = false;
+			if (_active_step_p!==-1) {
+				_active_step = _active_step.substr(("step=").length);
+				try {
+					var _active_step_ = parseInt(_active_step,10);
+					if (_active_step_.toString()===_active_step) {
+						if (_allowed_step_jumps.indexOf(_active_step_)!==-1) {
+							$('.form-step').removeClass('active');
+							$('.form-step-'+_active_step).addClass('active');
+							$('BODY').addClass('one-step-view');
+							_active_step_ok = true;
+						}
+					}
+				} catch (e) { console.log(e)}
+			};
+			if (!_active_step_ok) {
+				$('.form-step.form-step-1').addClass('active');
+			}
+		}
+	})();
+	/* end auto step */
 	var _tokens = [
 		{
 			title : 'IDEX',

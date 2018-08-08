@@ -1219,8 +1219,12 @@ BODY.one-step-view HEADER.main H1,
 BODY.one-step-view HEADER.main SPAN,
 BODY.one-step-view SECTION.form-wrapper>ARTICLE>FOOTER,
 BODY.one-step-view SECTION.form-wrapper>ARTICLE>HEADER,
+BODY.one-step-view SECTION.form-wrapper DIV.other-capitalize-holder::after,
 BODY.one-step-view .-one-step-hidden {
 	display: none !important;
+}
+BODY.one-step-view SECTION.form-wrapper UL.other-capitalize {
+	height: auto !important;
 }
 BODY HEADER,
 BODY SECTION {

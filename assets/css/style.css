@@ -508,7 +508,7 @@ SECTION.form-wrapper DIV.form-input-roller DIV.form-input-roller-scroller DIV EM
 	padding-bottom: 3px;
 	background: #6c16e1;
 	position: absolute;
-	top: 100%;
+	bottom: 100%;
 	left: -20px;
 	right: -20px;
 	text-align: center;
@@ -525,9 +525,9 @@ SECTION.form-wrapper DIV.form-input-roller DIV.form-input-roller-scroller DIV EM
 	content: '';
 	width: 16px;
 	height: 7px;
-	background: url(../img/scroll-arrow.png) no-repeat;
+	background: url(../img/scroll-arrow-bottom.png) no-repeat;
 	position: absolute;
-	top: -7px;
+	bottom: -7px;
 	left: 48%;
 	margin-left: -6px;
 }
@@ -1222,6 +1222,9 @@ BODY.one-step-view SECTION.form-wrapper>ARTICLE>HEADER,
 BODY.one-step-view SECTION.form-wrapper DIV.other-capitalize-holder::after,
 BODY.one-step-view .-one-step-hidden {
 	display: none !important;
+}
+ARTICLE.form-step-2 DIV.form-row LABEL:first-child {
+	padding-bottom: 18px;
 }
 BODY.one-step-view SECTION.form-wrapper UL.other-capitalize {
 	height: auto !important;

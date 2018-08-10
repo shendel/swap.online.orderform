@@ -1,11 +1,13 @@
 $(document).ready ( function () {
 	/* auto step */
+	let _roller_max_value = 4;
 	(function() {
+		let _active_step = 0;
 		var _allowed_step_jumps = [ 2 ];
 		var _has_query = document.location.href.indexOf("?");
 		var _active_step_ok = false;
 		if (_has_query!==-1) {
-			var _active_step = document.location.href.split("?")[1];
+			_active_step = document.location.href.split("?")[1];
 			var _active_step_p = _active_step.lastIndexOf('step=');
 			if (_active_step_p!==-1) {
 				_active_step = _active_step.substr(("step=").length);
@@ -24,6 +26,10 @@ $(document).ready ( function () {
 		}
 		if (!_active_step_ok) {
 			$('.form-step.form-step-1').addClass('active');
+		} else {
+			if (_active_step==2) {
+				_roller_max_value = 40;
+			}
 		}
 	})();
 	/* end auto step */
@@ -268,7 +274,7 @@ $(document).ready ( function () {
 	( function () {
 		var _is_rolling = false;
 		var _min = 0.1;
-		var _max = 4;
+		var _max = _roller_max_value;
 		var _init_value = 2;
 		var _round = 2;
 		var _token_count = 21000000;

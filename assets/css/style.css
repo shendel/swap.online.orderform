@@ -927,10 +927,17 @@ SECTION.form-wrapper DIV.result-price-rows>DIV.result-price-token {
 SECTION.form-wrapper DIV.result-price-rows>DIV>SPAN {
 	display: block;
 }
-SECTION.form-wrapper DIV.result-price-rows>DIV>STRONG {
+SECTION.form-wrapper DIV.result-price-rows>DIV>STRONG,
+SECTION.form-wrapper DIV.result-price-rows>DIV>DIV>STRONG {
 	display: block;
 	color: #2a1150;
 	padding-bottom: 20px;
+}
+SECTION.form-wrapper DIV.result-price-rows>DIV>DIV>STRONG U {
+	text-decoration: none;
+}
+SECTION.form-wrapper DIV.result-price-rows>DIV>DIV>STRONG {
+	padding-bottom: 0px;
 }
 SECTION.form-wrapper DIV.form-result-page SPAN.result-warning {
 	color: #a40000;

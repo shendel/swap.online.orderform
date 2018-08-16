@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" href="./assets/css/reset.css" />
-	<link rel="stylesheet" href="./assets/css/style.css?v=4.3" />
+	<link rel="stylesheet" href="./assets/css/style.css?v=5.0" />
 	<script src="./assets/js/libs/prefixfree.min.js"></script>
 	<script src="./assets/js/libs/modernizr-3.2.0.base.js"></script>
 	<script src="./assets/js/libs/jquery-3.3.1.min.js"></script>
@@ -82,17 +82,26 @@
 						<ul>
 							<li data-value="10%">10%</li>
 							<li data-value="15%">15%</li>
-							<li data-value="20%">20%</li>
-							<li data-value="30%">30%</li>
-							<li data-value="40%">40%</li>
-							<li data-value="50%">50%</li>
-							<li data-value="60%">60%</li>
-							<li data-value="70%">70%</li>
-							<li data-value="80%">80%</li>
-							<li data-value="90%">90%</li>
-							<li data-value="100%">100%</li>
+							<li data-value="20%">20% (bonus x2 tokens)</li>
+							<li data-value="30%">30% (bonus x3 tokens)</li>
+							<li data-value="40%">40% (bonus x4 tokens)</li>
+							<li data-value="50%">50% (bonus x5 tokens)</li>
+							<li data-value="60%">60% (bonus x6 tokens)</li>
+							<li data-value="70%">70% (bonus x7 tokens)</li>
+							<li data-value="80%">80% (bonus x8 tokens)</li>
+							<li data-value="90%">90% (bonus x9 tokens)</li>
+							<li data-value="100%">100% (bonus x10 tokens)</li>
 							<li data-value="0%">0% - Consumables</li>
 						</ul>
+					</div>
+					<div class="form-info">
+						<p>Progressive bonus for those who believe in the project and want to earn a lot if the project succeeds. If you choose a payment share in SWAP tokens of more than 20%, you will be sent 2-3-4-5 times more tokens. <br />
+							20% — ×2 <br />
+							30% — ×3 <br />
+							40% — ×4 <br />
+							50% — ×5 <br />
+							<b style="color:red">(valid only in August)</b>
+						</p>
 					</div>
 				</div>
 				<div class="form-row">
@@ -189,6 +198,14 @@
 						<div class="result-price-token">
 							<strong><em data-target="token-total">$###</em> = <em data-target="token-count">###</em> Swap tokens</strong>
 							<span>According to your estimation 1 Swap = $<em data-target="token-price">#</em></span>
+							<div class="result-bonus-token">
+								<strong>
+									+ <em data-target="token-bonus"><u data-target="token-bonus-count">###</u> (x<u data-target="token-bonus-mult">2</u> Bonus)</em>
+								</strong>
+								<strong>
+									= <em data-target="token-bonus-result">###</em> Swap tokens
+								</strong>
+							</div>
 						</div>
 					</div>
 					<h4>ETH wallet address for Ether</h4>
@@ -245,7 +262,7 @@
 				<footer></footer>
 			</article>
 			<p class="confirm-answer">Are you sure that to get the tokens did not specify the address of the exchanger (bot or exchange) and be able to remove tokens?</p>
-			<script type="text/javascript" src="./assets/js/main.js?v=4.3"></script>
+			<script type="text/javascript" src="./assets/js/main.js?v=5.0"></script>
 		</section>
 	</div>
 </body>

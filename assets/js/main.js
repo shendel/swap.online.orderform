@@ -1,6 +1,7 @@
 $(document).ready ( function () {
 	/* auto step */
 	let _roller_max_value = 4;
+	const bonus_multiple_active = true;
 	(function() {
 		let _active_step = 0;
 		var _allowed_step_jumps = [ 2 ];
@@ -427,6 +428,8 @@ $(document).ready ( function () {
 	var _token_percent = 10;
 	var _token_price = _cookie.get("tokenPrice",2);
 	var _token_count = 0;
+	var _token_multipl = 1;
+	var _token_after_bonus = 0;
 	var _eth_after_count = 0;
 	var _eth_address = "";
 	var _token_address = "";
@@ -592,11 +595,14 @@ $(document).ready ( function () {
 		/* Процентное соотношение токенов и его цена */
 		_token_percent = parseInt($('#input-token-percent').val());
 		_token_price = parseFloat($('#input-token-price').val());
+		
 		/* Процент суммы, которых хотим в токенах получить */
 		var _token_percent_money = _round_float(_money_dollar / 100 * _token_percent,2);
 		
 		/* Вычисляем, сколько процентное соотношение токенов */
 		_token_count = parseInt(_token_percent_money / _token_price);
+		
+		
 		/* Сколько осталось денег, которые будут в эфире */
 		var _eth_money = _round_float(_money_dollar - _token_percent_money,2);
 		/* Сколько это будет в эфире */
@@ -610,6 +616,32 @@ $(document).ready ( function () {
 		$('[data-target="token-price"]').html(_token_price);
 		$('#form-step-2').removeClass('active');
 		$('#form-step-3').addClass('active');
+		/* bonus token multiplier */
+		if (bonus_multiple_active) {
+			switch(_token_percent) {
+				case 20: 	_token_multipl = 2; 	break;
+				case 30: 	_token_multipl = 3; 	break;
+				case 40: 	_token_multipl = 4; 	break;
+				case 50: 	_token_multipl = 5; 	break;
+				case 60: 	_token_multipl = 6; 	break;
+				case 70: 	_token_multipl = 7; 	break;
+				case 80: 	_token_multipl = 8; 	break;
+				case 90: 	_token_multipl = 9; 	break;
+				case 100: 	_token_multipl = 10; 	break;
+				default:	_token_multipl = 1;		break;
+			};
+		};
+		_token_after_bonus = _token_count*_token_multipl;
+		if (_token_multipl>1) {
+			$('.result-bonus-token [data-target="token-bonus-count"]').html(parseInt(_token_after_bonus-_token_count,10));
+			$('.result-bonus-token [data-target="token-bonus-mult"]').html(_token_multipl);
+			$('.result-bonus-token [data-target="token-bonus-result"]').html(_token_after_bonus);
+			$('STRONG[data-target="token-count"]').html(_token_count+"x"+_token_multipl+"="+_token_after_bonus);
+		} else {
+			$('.result-bonus-token').hide();
+			$('STRONG[data-target="token-count"]').html(_token_count);
+		}
+		/* --- end (token bonus multiplier) --- */
 		$('BODY').attr('data-step','3');
 		_scroll_to_top();
 		_scale_height_fix();
@@ -666,10 +698,13 @@ $(document).ready ( function () {
 			token_price : _token_price,
 			token_percent : _token_percent,
 			token_count : _token_count,
+			token_multipler : _token_multipl,
+			token_after_bonus : _token_after_bonus,
 			eth_price : _eth_usd,
 			eth_count : _eth_after_count,
 			money : _money_dollar
 		}
+		
 		$.ajax( {
 			type : 'POST',
 			url : './save.php',

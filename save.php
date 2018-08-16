@@ -12,6 +12,9 @@ error_reporting(E_ALL);
 		and isset($_POST['eth_price'])
 		and isset($_POST['eth_count'])
 		and isset($_POST['money'])
+		/* bonus - can be one */
+		and isset($_POST['token_multipler'])
+		and isset($_POST['token_after_bonus'])
 	) {
 
 		$new_order = "";
@@ -26,7 +29,13 @@ error_reporting(E_ALL);
 		}
 		$new_order.= "Цена выполненных работ: ".$_POST['money']."$\r\n";
 		$new_order.= "Цена за токен: ".$_POST['token_price']."$ \r\n";
-		$new_order.= "Количество токенов: ".$_POST['token_count']."\r\n";
+		if (intval($_POST['token_multipler'])==1) {
+			$new_order.= "Количество токенов: ".$_POST['token_count']."\r\n";
+		} else {
+			$new_order.= "Количество токенов (без множителя): ".$_POST['token_count']."\r\n";
+			$new_order.= "BONUS множитель: x".$_POST['token_multipler']."\r\n";
+			$new_order.= "Всего токенов: ".$_POST['token_after_bonus']."\r\n";
+		}
 		$new_order.= "Процент: ".$_POST['token_percent']."%\r\n";
 		$new_order.= "Курс Eth: ".$_POST['eth_price']."$\r\n";
 		$new_order.= "Количество Эфира: ".$_POST['eth_count']."\r\n";

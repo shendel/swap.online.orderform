@@ -39,7 +39,7 @@ $(document).ready ( function () {
 	var _tokens = [
 		{
 			title : 'IDEX',
-			capital : 3,
+			capital : 2.3,
 			icon : 'idex.png',
 			desc : "No Bitcoin traiding pairs"
 		},
@@ -51,61 +51,49 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'AirSwap',
-			capital : 18,
+			capital : 12,
 			icon : 'airswap.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Waves Dex',
-			capital : 270,
+			capital : 2,
 			icon : 'wavesplatform.png',
 			desc : "Was hacked on launch"
 		},
 		{
-			title : 'LegolasExchange',
-			capital : 23,
-			icon : 'lgo_exchange.png',
-			desc : "Not a decentralised exchange"
-		},
-		{
-			title : 'ConterParty',
-			capital : 20.4,
-			icon : 'counterparty.png',
-			desc : "No ERC20 tokens pairs"
-		},
-		{
 			title : 'Enigma Catalyst',
-			capital : 106.3,
+			capital : 47,
 			icon : 'enigma.png',
 			desc : "Software installation required"
 		},
 		{
 			title : 'CryptoBridge',
-			capital : 24,
+			capital : 3,
 			icon : 'crypto-bridge.png',
 			desc : "No ERC20 tokens pairs"
 		},
 		{
-			title : 'Bancor Network',
-			capital : 141,
+			title : 'Bancor',
+			capital : 81,
 			icon : 'bancor.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Kyber Network',
-			capital : 107,
+			capital : 57,
 			icon : 'bancor_network.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Mothership',
-			capital : 16,
+			capital : 8,
 			icon : 'mothership.png',
 			desc : "They are not sure about cross-chain transaction"
 		},
 		{
 			title : 'SingularX',
-			capital : 19,
+			capital : 9,
 			icon : 'singularx.png',
 			desc : "No Bitcoin traiding pairs"
 		},
@@ -141,9 +129,9 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'Omise Go',
-			capital : 734,
+			capital : 50,
 			icon : 'omnise_go.png',
-			desc : "ERC20 tokens mostly"
+			desc : "ERC20 tokens mostly1"
 		}
 	];
 	( function () {

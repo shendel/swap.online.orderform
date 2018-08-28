@@ -46,49 +46,49 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'OpenLadger',
-			capital : 0.3,
+			capital : 0.2,
 			icon : 'openledger.png',
 			desc : "Not fully decentralised. Withdrowal fee presented"
 		},
 		{
 			title : 'AirSwap',
-			capital : 12,
+			capital : 16.8,
 			icon : 'airswap.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Waves Dex',
-			capital : 2,
+			capital : 223.2,
 			icon : 'wavesplatform.png',
 			desc : "Was hacked on launch"
 		},
 		{
 			title : 'Enigma Catalyst',
-			capital : 47,
+			capital : 61.3,
 			icon : 'enigma.png',
 			desc : "Software installation required"
 		},
 		{
 			title : 'CryptoBridge',
-			capital : 3,
+			capital : 1.5,
 			icon : 'crypto-bridge.png',
 			desc : "No ERC20 tokens pairs"
 		},
 		{
 			title : 'Bancor',
-			capital : 81,
+			capital : 89.5,
 			icon : 'bancor.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Kyber Network',
-			capital : 57,
+			capital : 76.2,
 			icon : 'bancor_network.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Mothership',
-			capital : 8,
+			capital : 13.6,
 			icon : 'mothership.png',
 			desc : "They are not sure about cross-chain transaction"
 		},
@@ -100,13 +100,13 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'Heat',
-			capital : 3,
+			capital : 1.4,
 			icon : 'heatwallet.png',
 			desc : "No ERC20 tokens pairs"
 		},
 		{
 			title : 'Stellar Dex',
-			capital : 3540,
+			capital : 4294.4,
 			icon : 'stellar_dex.png',
 			desc : "Trade pair with XLM only. Account verification required"
 		},
@@ -118,19 +118,19 @@ $(document).ready ( function () {
 		},
 		{
 			title : 'Aphelion',
-			capital : 6,
+			capital : 3.3,
 			icon : 'aphelion.png',
 			desc : "Software installation required"
 		},
 		{
 			title : 'Republic Protocol',
-			capital : 23.5,
+			capital : 13.8,
 			icon : 'republicprotocol.png',
 			desc : "Large order oriented only"
 		},
 		{
 			title : 'Omise Go',
-			capital : 50,
+			capital : 601.9,
 			icon : 'omnise_go.png',
 			desc : "ERC20 tokens mostly1"
 		}

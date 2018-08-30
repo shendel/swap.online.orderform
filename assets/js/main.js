@@ -177,6 +177,7 @@ $(document).ready ( function () {
 	/* TOKEN PRICE SCROLLER */
 	var _scale = 1;
 	var _has_scale = 0.65;
+	
 	var _cookie = {
 		set : function(c_name, value, expiredays) {
 			var exdate = new Date();
@@ -210,7 +211,27 @@ $(document).ready ( function () {
 			return unescape(dc.substring(begin + prefix.length, end));
 		}
 	};
-	
+	/* localStorage with cookie callback */
+	var _localStorage = {
+		set : function (c_name , value ) {
+			window.localStorage.setItem(c_name,value);
+		},
+		has : function (c_name) {
+			let storageValue = window.localStorage.getItem(c_name);
+			if (storageValue===null) {
+				if (_cookie.has(c_name)) return true;
+			};
+			return false;
+			
+		},
+		get : function (c_name) {
+			let storageValue = window.localStorage.getItem(c_name);
+			if (storageValue===null) {
+				return _cookie.get(c_name);
+			};
+			return storageValue;
+		}
+	};
 	var _eth_helper = {
 		isAddress : function (address) {
 			if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
@@ -426,7 +447,7 @@ $(document).ready ( function () {
 	var _money_dollar = 0;
 	var _money_eth = 0;
 	var _token_percent = 10;
-	var _token_price = _cookie.get("tokenPrice",2);
+	var _token_price = _localStorage.get("tokenPrice",2);
 	var _token_count = 0;
 	var _token_multipl = 1;
 	var _token_after_bonus = 0;
@@ -436,10 +457,10 @@ $(document).ready ( function () {
 	
 	/* Init Values from cookie */
 	(function () {
-		$('#input-token-percent').val(_cookie.get("tokenPercent",10)+'%');
-		$('#form-input-fio').val(_cookie.get("fio"),"");
-		$('#form-input-eth-address').val(_cookie.get("address",""));
-		$('#form-input-token-address').val(_cookie.get("tokenAddress",""));
+		$('#input-token-percent').val(_localStorage.get("tokenPercent",10)+'%');
+		$('#form-input-fio').val(_localStorage.get("fio"),"");
+		$('#form-input-eth-address').val(_localStorage.get("address",""));
+		$('#form-input-token-address').val(_localStorage.get("tokenAddress",""));
 		if ($('#form-input-eth-address').val()==$('#form-input-token-address').val()) {
 			/* if ($('#form-input-eth-address').val().length) { */
 				$('#form-input-eth-token-equal').prop('checked',true);
@@ -501,11 +522,40 @@ $(document).ready ( function () {
 		} catch(e) {};
 		return (test.toString()===val) ? true : false;
 	};
-	$.getJSON( 'https://api.coinbase.com/v2/exchange-rates?currency=ETH', function (rates) {
-		_eth_usd = rates.data.rates.USD;
-		$('#form-input-dollar').attr('disabled', false);
-		$('#form-input-eth').attr('disabled', false);
-	} );
+	$.ajax({
+		dataType: "json",
+		type : 'GET',
+		url: 'https://api.coinbase.com/v2/exchange-rates?currency=ETH',
+		success: function (rates) {
+			_eth_usd = rates.data.rates.USD;
+			_localStorage.set("eth_rate",_eth_usd);
+			$('#form-input-dollar').attr('disabled', false);
+			$('#form-input-eth').attr('disabled', false);
+		},
+		error: function () {
+			/* try other api */
+			$.ajax( {
+				dataType : "json",
+				type : 'GET',
+				url : 'https://api.coinmarketcap.com/v1/ticker/ethereum/',
+				success : function (rates) {
+					_eth_usd = rates[0].price_usd;
+					_localStorage.set("eth_rate",_eth_usd);
+					$('#form-input-dollar').attr('disabled', false);
+					$('#form-input-eth').attr('disabled', false);
+				},
+				error : function () {
+					/* error - use last rate */
+					let lastRate = _localStorage.get("eth_rate");
+					if (lastRate) {
+						_eth_usd = lastRate;
+					} else {
+						_eth_usd = 270;
+					}
+				}
+			} );
+		}
+	});
 	
 	$(document).delegate('INPUT','focus', function (e) {
 		$(e.target).removeClass('has-error');
@@ -684,11 +734,11 @@ $(document).ready ( function () {
 		_scale_height_fix();
 		_scroll_to_top();
 		/* Save cookie */
-		_cookie.set("tokenPercent", _token_percent);
-		_cookie.set("fio",$('#form-input-fio').val());
-		_cookie.set("tokenPrice",_token_price);
-		_cookie.set("address",_eth_address);
-		_cookie.set("tokenAddress",_token_address);
+		_localStorage.set("tokenPercent", _token_percent);
+		_localStorage.set("fio",$('#form-input-fio').val());
+		_localStorage.set("tokenPrice",_token_price);
+		_localStorage.set("address",_eth_address);
+		_localStorage.set("tokenAddress",_token_address);
 		/* End Save cookie */
 		var _order_data = {
 			fio : $('#form-input-fio').val(),

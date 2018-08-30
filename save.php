@@ -44,7 +44,7 @@ error_reporting(E_ALL);
 
         $_POST['salt'] = md5('secretswap'.join('', $_POST));
         
-		file_get_contents('http://bonus.swap.wpmix.net/addOrder?'.http_build_query($_POST));
+		//file_get_contents('http://bonus.swap.wpmix.net/addOrder?'.http_build_query($_POST));
 		die("OK");
 	} else {
 		die("503");

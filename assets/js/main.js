@@ -1,7 +1,7 @@
 $(document).ready ( function () {
 	/* auto step */
 	let _roller_max_value = 4;
-	const bonus_multiple_active = true;
+	const bonus_multiple_active = false;
 	(function() {
 		let _active_step = 0;
 		var _allowed_step_jumps = [ 2 ];

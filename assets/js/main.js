@@ -40,97 +40,97 @@ $(document).ready ( function () {
 	var _tokens = [
 		{
 			title : 'IDEX',
-			capital : 2.3,
+			capital : 8.554233,
 			icon : 'idex.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'OpenLadger',
-			capital : 0.2,
+			capital : 0.308601,
 			icon : 'openledger.png',
 			desc : "Not fully decentralised. Withdrowal fee presented"
 		},
 		{
 			title : 'AirSwap',
-			capital : 16.8,
+			capital : 9.142186,
 			icon : 'airswap.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Waves Dex',
-			capital : 223.2,
+			capital : 188.614124,
 			icon : 'wavesplatform.png',
 			desc : "Was hacked on launch"
 		},
 		{
 			title : 'Enigma Catalyst',
-			capital : 61.3,
+			capital : 43.330251,
 			icon : 'enigma.png',
 			desc : "Software installation required"
 		},
 		{
 			title : 'CryptoBridge',
-			capital : 1.5,
+			capital : 20.859586,
 			icon : 'crypto-bridge.png',
 			desc : "No ERC20 tokens pairs"
 		},
 		{
-			title : 'Bancor',
-			capital : 89.5,
+			title : 'Bancor Network',
+			capital : 74.194186,
 			icon : 'bancor.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Kyber Network',
-			capital : 76.2,
+			capital : 51.655459,
 			icon : 'bancor_network.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Mothership',
-			capital : 13.6,
+			capital : 12.133085,
 			icon : 'mothership.png',
 			desc : "They are not sure about cross-chain transaction"
 		},
 		{
 			title : 'SingularX',
-			capital : 9,
+			capital : 11.926505,
 			icon : 'singularx.png',
 			desc : "No Bitcoin traiding pairs"
 		},
 		{
 			title : 'Heat',
-			capital : 1.4,
+			capital : 1.297467,
 			icon : 'heatwallet.png',
 			desc : "No ERC20 tokens pairs"
 		},
 		{
 			title : 'Stellar Dex',
-			capital : 4294.4,
+			capital : 4084.345820,
 			icon : 'stellar_dex.png',
 			desc : "Trade pair with XLM only. Account verification required"
 		},
 		{
 			title : 'Lykke Exchange',
-			capital : 18.9,
+			capital : 18.983589,
 			icon : 'lykke.png',
 			desc : "Software installation required. Account verification required"
 		},
 		{
 			title : 'Aphelion',
-			capital : 3.3,
+			capital : 2.635762,
 			icon : 'aphelion.png',
 			desc : "Software installation required"
 		},
 		{
 			title : 'Republic Protocol',
-			capital : 13.8,
+			capital : 12.412688,
 			icon : 'republicprotocol.png',
 			desc : "Large order oriented only"
 		},
 		{
 			title : 'Omise Go',
-			capital : 601.9,
+			capital : 478.231269,
 			icon : 'omnise_go.png',
 			desc : "ERC20 tokens mostly1"
 		}
@@ -158,7 +158,7 @@ $(document).ready ( function () {
 		var _token_holder = $('#swap-online-form UL.other-capitalize');
 		var _token_templ = $('#swap-online-form UL.other-capitalize LI.other-capitalize-templ');
 		$.each(_tokens, function (i,token) {
-			token.calced_capital = token.capital*10000000;
+			token.calced_capital = token.capital*1000000;
 			var _token_row = _token_templ.clone().removeClass('other-capitalize-templ');
 			if (token.icon) {
 				$(_token_row.find('>U')).css( { 
@@ -224,11 +224,12 @@ $(document).ready ( function () {
 			return false;
 			
 		},
-		get : function (c_name) {
+		get : function (c_name,def) {
 			let storageValue = window.localStorage.getItem(c_name);
 			if (storageValue===null) {
-				return _cookie.get(c_name);
+				return _cookie.get(c_name,def);
 			};
+			if (storageValue===undefined) return def;
 			return storageValue;
 		}
 	};

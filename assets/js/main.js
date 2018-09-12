@@ -317,9 +317,11 @@ $(document).ready ( function () {
 				$('#we-can-buy-your-tokens').addClass('-hidden');
 			}
 				
-			_input.val(_current);
+			if (_current<_min) _current = _min;
+			if (_current>_max) _current = _max;
 			if (new_offset===0) _current = _min;
 			if (new_offset===_scroller.width()) _current = _max;
+			_input.val(_current);
 			var _capitalize = Math.round(_token_count * _current);
 			$('#swap-online-form EM.form-user-capitalize').html(numberWithSpaces(_capitalize)+' $');
 			$('#swap-online-form SPAN.form-user-capitalize').html(numberWithSpaces(_capitalize)+' $');

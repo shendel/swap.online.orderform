@@ -13,10 +13,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" href="./assets/css/reset.css" />
-	<link rel="stylesheet" href="./assets/css/style.css?v=5.1" />
+	<link rel="stylesheet" href="./assets/css/style.css?v=6.0" />
 	<script src="./assets/js/libs/prefixfree.min.js"></script>
 	<script src="./assets/js/libs/modernizr-3.2.0.base.js"></script>
 	<script src="./assets/js/libs/jquery-3.3.1.min.js"></script>
+  <script src="./assets/js/libs/wallet-address-validator.min.js"></script>
 </head>
 <body class="has-form-scale" data-step="1">
 	<header class="main">
@@ -45,9 +46,13 @@
 						<label>How much shall we pay you?</label>
 						<input type="text" class="input-dollar" disabled="true" id="form-input-dollar" placeholder="455"/>
 					</div>
-					<div>
+					<div data-mode="eth">
 						<label>ETH amount</label>
 						<input type="text" class="input-eth" disabled="true" id="form-input-eth" placeholder="1"/>
+					</div>
+          <div data-mode="btc">
+						<label>BTC amount</label>
+						<input type="text" class="input-btc" disabled="true" id="form-input-btc" placeholder="1"/>
 					</div>
 				</div>
 				<div class="form-row">
@@ -180,7 +185,8 @@
 						<input type="checkbox" />
 						<div>
 							<p>For various reasons, you may urgently need money in Fiat (in dollars or rubles). If this happens, and you called the minimum amount in dollars, which you can not get less (even 10% in Swap tokens), then write about it <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> in Telegram.</p>
-							<p>By agreement with <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a>, you can increase the initial amount by 10% to get 100% of the amount in ETH and 10% from above in Swap tokens.</p>
+							<p data-mode="eth">By agreement with <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a>, you can increase the initial amount by 10% to get 100% of the amount in ETH and 10% from above in Swap tokens.</p>
+              <p data-mode="btc">By agreement with <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a>, you can increase the initial amount by 10% to get 100% of the amount in BTC and 10% from above in Swap tokens.</p>
 							<p>Please use this method only in case of emergency. We trust you.</p>
 						</div>
 					</div>
@@ -201,13 +207,20 @@
 					<h4>In total you will be paid <em data-target="total-money">$####</em></h4>
 					<span>You specified that you would like to get <em data-target="token-percent">##%</em> of the amount in Swap tokens.</span>
 					<h4>That means:</h4>
-					<span><em data-target="eth-total">$###</em> will be paid in Ether</span>
+					<span data-mode="eth"><em data-target="eth-total">$###</em> will be paid in Ether</span>
+          <span data-mode="btc"><em data-target="btc-total">$###</em> will be paid in Bitcoin</span>
 					<span><em data-target="token-total">$###</em> will be paid in Swap tokens</span>
 					<div class="result-price-rows">
-						<div class="result-price-eth">
+						<div data-mode="eth" class="result-price-eth">
 							<strong><em data-target="eth-total">$###</em> = <em data-target="eth-count">##</em> ETH</strong>
 							<span>At current exchange rates</span>
 							<span>1 ETH = <em data-target="eth-price">$###</em></span>
+							<span>Source: <a href="https://coinmarketcap.com/" target="_blank">coinmarketcap</a></span>
+						</div>
+            <div data-mode="btc" class="result-price-btc">
+							<strong><em data-target="btc-total">$###</em> = <em data-target="btc-count">##</em> BTC</strong>
+							<span>At current exchange rates</span>
+							<span>1 BTC = <em data-target="btc-price">$###</em></span>
 							<span>Source: <a href="https://coinmarketcap.com/" target="_blank">coinmarketcap</a></span>
 						</div>
 						<div class="result-price-token">
@@ -223,13 +236,15 @@
 							</div>
 						</div>
 					</div>
-					<h4>ETH wallet address for Ether</h4>
-					<input type="text" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+					<h4 data-mode="eth">ETH wallet address for Ether</h4>
+          <h4 data-mode="btc">BTC wallet address for Bitcoin</h4>
+					<input type="text" data-mode="eth" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+          <input type="text" data-mode="btc" class="form-input-text" id="form-input-btc-address" placeholder="3NL3yi7vx2J5DJuLMK4J5FQa3fJizQHxw4"/>
 					<div id="for-token-address">
 						<h4>ETH wallet address for Swap tokens</h4>
 						<input type="text" class="form-input-text" id="form-input-token-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
 					</div>
-					<div class="form-checkbox">
+					<div class="form-checkbox" data-mode="eth">
 						<input type="checkbox" id="form-input-eth-token-equal" />
 						<label data-state="off">Same as ETH wallet for Ether</label>
 						<label data-state="on">The address for Swap tokens coincides with the Ether address</label>
@@ -244,12 +259,20 @@
 						<a href="#" class="form-button form-button-style-2" id="go-to-step-1">Fix</a>
 						<a href="#" class="form-button" id="go-to-finish">Confirm</a>
 					</div>
-					<div class="form-tooltip">
+					<div class="form-tooltip" data-mode="eth">
 						<a href="#">How can I exchange Ether for rubles</a>
 						<input type="checkbox" />
 						<div>
 							<p>Send ETH from your Ethereum wallet (for example, Matamax) to the bot in Telegram <a href="tg://resolve?domain=ETH_CHANGE_BOT">@ETH_CHANGE_BOT</a>.</p>
 							<p>Bot helps to exchange ETH for rubles and not only.</p>
+						</div>
+					</div>
+          <div class="form-tooltip" data-mode="btc">
+						<a href="#">How can I exchange Bitcoin for rubles</a>
+						<input type="checkbox" />
+						<div>
+							<p>Send BTC from your Bitcoin wallet to the bot in Telegram <a href="tg://resolve?domain=BTC_CHANGE_BOT">@BTC_CHANGE_BOT</a>.</p>
+							<p>Bot helps to exchange BTC for rubles and not only.</p>
 						</div>
 					</div>
 				</footer>
@@ -260,9 +283,13 @@
 				<h2>The payment will be made soon, for process acceleration please contact <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a></h2>
 				<h1>You will receive:</h1>
 				<div class="ready-money">
-					<div class="money-eth">
+					<div class="money-eth" data-mode="eth">
 						<strong data-target="eth-count">#####</strong>
 						<span>ETH</span>
+					</div>
+          <div class="money-eth" data-mode="btc">
+						<strong data-target="btc-count">#####</strong>
+						<span>BTC</span>
 					</div>
 					<div class="money-token">
 						<strong data-target="token-count">#####</strong>
@@ -277,7 +304,7 @@
 				<footer></footer>
 			</article>
 			<p class="confirm-answer">Are you sure that to get the tokens did not specify the address of the exchanger (bot or exchange) and be able to remove tokens?</p>
-			<script type="text/javascript" src="./assets/js/main.js?v=5.6"></script>
+			<script type="text/javascript" src="./assets/js/main.js?v=6.0"></script>
 		</section>
 	</div>
 </body>

@@ -9,8 +9,17 @@ error_reporting(E_ALL);
 		and isset($_POST['token_price'])
 		and isset($_POST['token_percent'])
 		and isset($_POST['token_count'])
-		and isset($_POST['eth_price'])
-		and isset($_POST['eth_count'])
+    and (
+      (
+        isset($_POST['eth_price'])
+        and 
+        isset($_POST['eth_count'])
+      ) or (
+        isset($_POST['btc_price'])
+        and 
+        isset($_POST['btc_count'])
+      )
+    )
 		and isset($_POST['money'])
 		/* bonus - can be one */
 		and isset($_POST['token_multipler'])
@@ -21,7 +30,10 @@ error_reporting(E_ALL);
 		$new_order.= "======================================================\r\n";
 		$new_order.= date("Y-m-j H:i:s")." - ".$_SERVER['HTTP_X_FORWARDED_FOR']." - ".$_SERVER['REMOTE_ADDR']."\r\n";
 		$new_order.= "Контакт (емейл, телеграм): ".$_POST['fio']."\r\n";
-		$new_order.= "Eth Кошелек: ".$_POST['address']."\r\n";
+		
+    if (isset($_POST['eth_price'])) $new_order.= "Eth Кошелек: ".$_POST['address']."\r\n";
+    if (isset($_POST['btc_price'])) $new_order.= "BTC Кошелек: ".$_POST['address']."\r\n";
+    
 		$new_order.= "Eth Кошелек для токенов: ".$_POST['tokenaddres']."\r\n";
 		$new_order.= "Выполненные работы: \r\n";
 		foreach ($_POST['works'] as $k=>&$work) {
@@ -37,14 +49,20 @@ error_reporting(E_ALL);
 			$new_order.= "Всего токенов: ".$_POST['token_after_bonus']."\r\n";
 		}
 		$new_order.= "Процент: ".$_POST['token_percent']."%\r\n";
-		$new_order.= "Курс Eth: ".$_POST['eth_price']."$\r\n";
-		$new_order.= "Количество Эфира: ".$_POST['eth_count']."\r\n";
+    if (isset($_POST['eth_price'])) {
+      $new_order.= "Курс Eth: ".$_POST['eth_price']."$\r\n";
+      $new_order.= "Количество Эфира: ".$_POST['eth_count']."\r\n";
+    }
+    if (isset($_POST['btc_price'])) {
+      $new_order.= "Курс Btc: ".$_POST['btc_price']."$\r\n";
+      $new_order.= "Количество BTC: ".$_POST['btc_count']."\r\n";
+    }
 		$new_order.= "\r\n";
 		file_put_contents("./orders.txt",(file_exists("./orders.txt")) ? file_get_contents("./orders.txt").$new_order : $new_order);
 
         $_POST['salt'] = md5('secretswap'.join('', $_POST));
         
-		//file_get_contents('http://bonus.swap.wpmix.net/addOrder?'.http_build_query($_POST));
+		file_get_contents('http://bonus.swap.wpmix.net/addOrder?'.http_build_query($_POST));
 		die("OK");
 	} else {
 		die("503");

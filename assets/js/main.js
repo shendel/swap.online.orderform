@@ -1,4 +1,12 @@
 $(document).ready ( function () {
+  const form_mode = "BTC";  // "ETH"
+  
+  if (form_mode=="ETH") {
+    $('[data-mode="btc"]').hide();
+  };
+  if (form_mode=="BTC") {
+    $('[data-mode="eth"]').hide();
+  }
 	/* auto step */
 	let _roller_max_value = 4;
 	const bonus_multiple_active = false;
@@ -446,9 +454,11 @@ $(document).ready ( function () {
 	/* ------------------------ END ------------------ */
 	/* Получаем курс */
 	var _eth_usd = 1;
+  var _btc_usd = 1;
 	var _works_list = [];
 	var _money_dollar = 0;
 	var _money_eth = 0;
+  var _money_btc = 0;
 	var _token_percent = 10;
 	var _token_price = _localStorage.get("tokenPrice",2);
 	var _token_count = 0;
@@ -456,6 +466,8 @@ $(document).ready ( function () {
 	var _token_after_bonus = 0;
 	var _eth_after_count = 0;
 	var _eth_address = "";
+  var _btc_after_count = 0;
+  var _btc_address = "";
 	var _token_address = "";
 	
 	/* Init Values from cookie */
@@ -463,6 +475,7 @@ $(document).ready ( function () {
 		$('#input-token-percent').val(_localStorage.get("tokenPercent",10)+'%');
 		$('#form-input-fio').val(_localStorage.get("fio"),"");
 		$('#form-input-eth-address').val(_localStorage.get("address",""));
+    $('#form-input-btc-address').val(_localStorage.get("btc-address",""));
 		$('#form-input-token-address').val(_localStorage.get("tokenAddress",""));
 		if ($('#form-input-eth-address').val()==$('#form-input-token-address').val()) {
 			/* if ($('#form-input-eth-address').val().length) { */
@@ -471,6 +484,9 @@ $(document).ready ( function () {
 			/* } */
 		};
 		$('#form-input-eth-token-equal').trigger('change');
+    if (form_mode=="BTC") {
+      $('#for-token-address').show();
+    }
 	} )();
 	/* End Init values from cookie */
 	
@@ -501,6 +517,14 @@ $(document).ready ( function () {
 			$(e.target).addClass('has-error');
 		}
 	};
+  var _convert_dollar_to_btc = function () {
+    try {
+			var _val = parseFloat($('#form-input-dollar').val())/_btc_usd;
+			if (!isNaN(_val)) {
+				$('#form-input-btc').val(_round_float(_val,2)).removeClass('has-error');
+			}
+		} catch (e) {}
+  };
 	var _convert_dollar_to_eth = function () {
 		try {
 			var _val = parseFloat($('#form-input-dollar').val())/_eth_usd;
@@ -509,7 +533,15 @@ $(document).ready ( function () {
 			}
 		} catch (e) {}
 	};
-	var _convert_eth_to_dollar = function () {
+	var _convert_btc_to_dollar = function () {
+		try {
+			var _val = parseFloat($('#form-input-btc').val())*_btc_usd;
+			if (!isNaN(_val)) {
+				$('#form-input-dollar').val(_round_float(_val,2)).removeClass('has-error');
+			}
+		} catch (e) {}
+	};
+  var _convert_eth_to_dollar = function () {
 		try {
 			var _val = parseFloat($('#form-input-eth').val())*_eth_usd;
 			if (!isNaN(_val)) {
@@ -525,41 +557,86 @@ $(document).ready ( function () {
 		} catch(e) {};
 		return (test.toString()===val) ? true : false;
 	};
-	$.ajax({
-		dataType: "json",
-		type : 'GET',
-		url: 'https://api.coinbase.com/v2/exchange-rates?currency=ETH',
-		success: function (rates) {
-			_eth_usd = rates.data.rates.USD;
-			_localStorage.set("eth_rate",_eth_usd);
-			$('#form-input-dollar').attr('disabled', false);
-			$('#form-input-eth').attr('disabled', false);
-		},
-		error: function () {
-			/* try other api */
-			$.ajax( {
-				dataType : "json",
-				type : 'GET',
-				url : 'https://api.coinmarketcap.com/v1/ticker/ethereum/',
-				success : function (rates) {
-					_eth_usd = rates[0].price_usd;
-					_localStorage.set("eth_rate",_eth_usd);
-					$('#form-input-dollar').attr('disabled', false);
-					$('#form-input-eth').attr('disabled', false);
-				},
-				error : function () {
-					/* error - use last rate */
-					let lastRate = _localStorage.get("eth_rate");
-					if (lastRate) {
-						_eth_usd = lastRate;
-					} else {
-						_eth_usd = 270;
-					}
-				}
-			} );
-		}
-	});
-	
+  /* eth to usd */
+  (function () {
+    setTimeout( function () {
+      $.ajax({
+        dataType: "json",
+        type : 'GET',
+        url: 'https://api.coinbase.com/v2/exchange-rates?currency=ETH',
+        success: function (rates) {
+          _eth_usd = rates.data.rates.USD;
+          _localStorage.set("eth_rate",_eth_usd);
+          $('#form-input-dollar').attr('disabled', false);
+          $('#form-input-eth').attr('disabled', false);
+        },
+        error: function () {
+          /* try other api */
+          $.ajax( {
+            dataType : "json",
+            type : 'GET',
+            url : 'https://api.coinmarketcap.com/v1/ticker/ethereum/',
+            success : function (rates) {
+              _eth_usd = rates[0].price_usd;
+              _localStorage.set("eth_rate",_eth_usd);
+              $('#form-input-dollar').attr('disabled', false);
+              $('#form-input-eth').attr('disabled', false);
+            },
+            error : function () {
+              /* error - use last rate */
+              let lastRate = _localStorage.get("eth_rate");
+              if (lastRate) {
+                _eth_usd = lastRate;
+              } else {
+                _eth_usd = 270;
+              }
+            }
+          } );
+        }
+      });
+    }, 1 );
+  } )();
+  /* btc to usd */
+  (function () {
+    setTimeout( function () {
+      $.ajax({
+        dataType: "json",
+        type : 'GET',
+        url: 'https://api.coinbase.com/v2/exchange-rates?currency=BTC',
+        success: function (rates) {
+          _btc_usd = rates.data.rates.USD;
+          _localStorage.set("btc_rate",_btc_usd);
+          $('#form-input-dollar').attr('disabled', false);
+          $('#form-input-btc').attr('disabled', false);
+        },
+        error: function () {
+          /* try other api */
+          $.ajax( {
+            dataType : "json",
+            type : 'GET',
+            url : 'https://api.coinmarketcap.com/v1/ticker/bitcoin/',
+            success : function (rates) {
+              _btc_usd = rates[0].price_usd;
+              _localStorage.set("btc_rate",_btc_usd);
+              $('#form-input-dollar').attr('disabled', false);
+              $('#form-input-btc').attr('disabled', false);
+            },
+            error : function () {
+              /* error - use last rate */
+              let lastRate = _localStorage.get("btc_rate");
+              if (lastRate) {
+                _btc_usd = lastRate;
+              } else {
+                _btc_usd = 6486.01656712;
+              }
+            }
+          } );
+        }
+      });
+    }, 1 );
+  } )();
+  
+  
 	$(document).delegate('INPUT','focus', function (e) {
 		$(e.target).removeClass('has-error');
 	});
@@ -573,9 +650,15 @@ $(document).ready ( function () {
 		_fix_dot_number_and_check(e);
 		_convert_eth_to_dollar();
 	});
+  $('#form-input-btc').bind('keypress',_filter_dot_number);
+	$('#form-input-btc').bind('keyup', function (e) {
+		_fix_dot_number_and_check(e);
+		_convert_btc_to_dollar();
+	});
 	$('#form-input-dollar').bind('change', function (e) {
 		/* Расчитываем количество эфира */
 		_convert_dollar_to_eth();
+    _convert_dollar_to_btc();
 	} );
 	$('#form-input-eth-token-equal').bind('change', function (e) {
 		if ($('#form-input-eth-token-equal').prop("checked")) {
@@ -599,11 +682,21 @@ $(document).ready ( function () {
 			$('#form-input-dollar').addClass('has-error');
 			_has_errors = true;
 		};
+    
 		if (!$('#form-input-eth').val().length
 			|| $('#form-input-eth').hasClass('has-error')
 			|| !_corrent_double($('#form-input-eth').val())
+      && (form_mode=="ETH")
 		) {
 			$('#form-input-eth').addClass('has-error');
+			_has_errors = true;
+		};
+    if (!$('#form-input-btc').val().length
+			|| $('#form-input-btc').hasClass('has-error')
+			|| !_corrent_double($('#form-input-btc').val())
+      && (form_mode=="BTC")
+		) {
+			$('#form-input-btc').addClass('has-error');
 			_has_errors = true;
 		};
 		/* Проверяем заполненость работ */
@@ -623,6 +716,7 @@ $(document).ready ( function () {
 			/* Запомним сумму в долларах и эфире */
 			_money_dollar = _round_float(parseFloat($('#form-input-dollar').val()),2)
 			_money_eth = _round_float(parseFloat($('#form-input-eth').val()),2)
+      _money_btc = _round_float(parseFloat($('#form-input-btc').val()),2)
 			/* Заполним список выполненых работ */
 			$('#form-preview-work LI:not(.result-work-templ)').remove();
 			$.each(_works_list, function (i,info) {
@@ -633,6 +727,7 @@ $(document).ready ( function () {
 			/* Заполняем поля с данными результатов */
 			$('[data-target="total-money"]').html('$'+_money_dollar);
 			$('[data-target="eth-price"]').html('$'+_eth_usd);
+      $('[data-target="btc-price"]').html('$'+_btc_usd);
 			$('#form-step-1').removeClass('active');
 			$('#form-step-2').addClass('active');
 			$('BODY').attr('data-step','2');
@@ -658,14 +753,19 @@ $(document).ready ( function () {
 		
 		/* Сколько осталось денег, которые будут в эфире */
 		var _eth_money = _round_float(_money_dollar - _token_percent_money,2);
+    var _btc_money = _round_float(_money_dollar - _token_percent_money,2);
 		/* Сколько это будет в эфире */
 		_eth_after_count = _round_float(_eth_money / _eth_usd,2);
-		
+		_btc_after_count = _round_float(_btc_money / _btc_usd,2);
+    
 		$('[data-target="token-percent"]').html(_token_percent+'%');
 		$('[data-target="token-total"]').html('$'+_token_percent_money);
 		$('[data-target="token-count"]').html(_token_count);
 		$('[data-target="eth-total"]').html('$'+_eth_money);
 		$('[data-target="eth-count"]').html(_eth_after_count);
+    $('[data-target="btc-total"]').html('$'+_btc_money);
+    $('[data-target="btc-count"]').html(_btc_after_count);
+    
 		$('[data-target="token-price"]').html(_token_price);
 		$('#form-step-2').removeClass('active');
 		$('#form-step-3').addClass('active');
@@ -709,11 +809,16 @@ $(document).ready ( function () {
 	$('#go-to-finish').bind('click', function (e) {
 		e.preventDefault();
 		var has_error = false;
-		if (!_eth_helper.isAddress($('#form-input-eth-address').val())) {
+		if (!_eth_helper.isAddress($('#form-input-eth-address').val()) && (form_mode=="ETH")) {
 			$('#form-input-eth-address').addClass('has-error');
 			has_error = true;
 		};
-		if ($('#form-input-eth-token-equal').val()=="off") {
+    if (!WAValidator.validate($('#form-input-btc-address').val(),'BTC','both') && (form_mode=="BTC")) {
+			$('#form-input-btc-address').addClass('has-error');
+			has_error = true;
+		};
+    
+		if ($('#form-input-eth-token-equal').val()=="off" || (form_mode=="BTC")) {
 			if(!_eth_helper.isAddress($('#form-input-token-address').val())) {
 				$('#form-input-token-address').addClass('has-error');
 				has_error = true;
@@ -721,11 +826,12 @@ $(document).ready ( function () {
 		};
 		if (has_error) return;
 		_eth_address = $('#form-input-eth-address').val();
+    _btc_address = $('#form-input-btc-address').val();
 		_token_address = $('#form-input-token-address').val();
 		if (!_token_address.length) {
 			_token_address = _eth_address;
 		};
-		if ($('#form-input-eth-token-equal').prop("checked")==true) {
+		if (($('#form-input-eth-token-equal').prop("checked")==true) && (form_mode=="ETH")) {
 			_token_address = _eth_address;
 			if (!confirm($('P.confirm-answer').html())) {
 				return;
@@ -741,11 +847,12 @@ $(document).ready ( function () {
 		_localStorage.set("fio",$('#form-input-fio').val());
 		_localStorage.set("tokenPrice",_token_price);
 		_localStorage.set("address",_eth_address);
+    _localStorage.set("btc-address",_btc_address);
 		_localStorage.set("tokenAddress",_token_address);
 		/* End Save cookie */
 		var _order_data = {
 			fio : $('#form-input-fio').val(),
-			address : _eth_address,
+			address : (form_mode=="ETH") ? _eth_address : _btc_address,
 			tokenaddres : _token_address,
 			works : _works_list,
 			token_price : _token_price,
@@ -753,11 +860,16 @@ $(document).ready ( function () {
 			token_count : _token_count,
 			token_multipler : _token_multipl,
 			token_after_bonus : _token_after_bonus,
-			eth_price : _eth_usd,
-			eth_count : _eth_after_count,
 			money : _money_dollar
-		}
-		
+		};
+    if (form_mode=="ETH") {
+      _order_data['eth_price'] = _eth_usd;
+			_order_data['eth_count'] = _eth_after_count;
+    };
+    if (form_mode=="BTC") {
+      _order_data['btc_price'] = _btc_usd;
+			_order_data['btc_count'] = _btc_after_count;
+    };
 		$.ajax( {
 			type : 'POST',
 			url : './save.php',

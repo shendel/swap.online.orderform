@@ -13,10 +13,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" href="./assets/css/reset.css" />
-	<link rel="stylesheet" href="./assets/css/style.css?v=5.1" />
+	<link rel="stylesheet" href="./assets/css/style.css?v=6.0" />
 	<script src="./assets/js/libs/prefixfree.min.js"></script>
 	<script src="./assets/js/libs/modernizr-3.2.0.base.js"></script>
 	<script src="./assets/js/libs/jquery-3.3.1.min.js"></script>
+  <script src="./assets/js/libs/wallet-address-validator.min.js"></script>
 </head>
 <body class="has-form-scale" data-step="1">
 
@@ -30,12 +31,14 @@
 			<p>Прочитайте политику оплаты:</p>
 			<a target="_blank" href="https://wiki.swap.online/pay-policy">https://wiki.swap.online/pay-policy</a>
 		</div>
-		<div class="-one-step-hidden">
+		<div class="-one-step-hidden" data-mode="eth">
 			<p>Как правильно заполнять Invoice, и Как обменять Эфир на рубли</p>
 			<a target="_blank" href="https://wiki.swap.online/ru/kak-pravilno-zapolnyat-invoice-i-kak-obmenyat-efir-na-rubli/">https://wiki.swap.online/ru/kak-pravilno-zapolnyat-invoice-i-kak-obmenyat-efir-na-rubli/</a>
 		</div>
-		
-		
+		<div class="-one-step-hidden" data-mode="btc">
+			<p>Как правильно заполнять Invoice</p>
+			<a target="_blank" href="https://wiki.swap.online/ru/kak-pravilno-zapolnyat-invoice-i-kak-obmenyat-efir-na-rubli/">https://wiki.swap.online/ru/kak-pravilno-zapolnyat-invoice-i-kak-obmenyat-efir-na-rubli/</a>
+		</div>
 	</header>
 	<div id="swap-online-form-holder">
 		<section class="form-wrapper" id="swap-online-form">
@@ -54,10 +57,14 @@
 						<label>Сколько мы вам должны?</label>
 						<input type="text" class="input-dollar" disabled="true" id="form-input-dollar" placeholder="455"/>
 					</div>
-					<div>
+					<div data-mode="eth">
 						<label>Сумма в ETH</label>
 						<input type="text" class="input-eth" disabled="true" id="form-input-eth" placeholder="1"/>
 					</div>
+          <div data-mode="btc">
+            <label>Сумма в BTC</label>
+            <input type="text" class="input-btc" disabled="true" id="form-input-btc" placeholder="1"/>
+          </div>
 				</div>
 				<div class="form-row">
 					<label>Описание работы</label>
@@ -190,7 +197,8 @@
 						<input type="checkbox" />
 						<div>
 							<p>По разным причинам вам могут быть срочно нужны деньги в фиате (в долларах или рублях). Если это случилось, и вы назвали минимальную сумму в долларах, меньше которой вы никак не можете получить (даже 10% в Swap токенах), то тогда напишите об этом <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> в Телеграм.</p>
-							<p>По договорнности с <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> вы можете увеличить изначальную сумму на 10%, чтобы получить 100% суммы в ETH и 10% сверху в Swap токенах.</p>
+							<p data-mode="eth">По договорнности с <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> вы можете увеличить изначальную сумму на 10%, чтобы получить 100% суммы в ETH и 10% сверху в Swap токенах.</p>
+              <p data-mode="btc">По договорнности с <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a> вы можете увеличить изначальную сумму на 10%, чтобы получить 100% суммы в BTC и 10% сверху в Swap токенах.</p>
 							<p>Пожалуйста, используйте этот способ только в случае крайней необходимости. Мы вам доверяем.</p>
 						</div>
 					</div>
@@ -211,13 +219,20 @@
 					<h4>Итого вы сделали работ на <em data-target="total-money">$####</em></h4>
 					<span>Вы указали, что хотите получить <em data-target="token-percent">##%</em> оплаты в Swap токенах.</span>
 					<h4>Это значит, что:</h4>
-					<span><em data-target="eth-total">$###</em> мы отправим вам в Эфире</span>
+					<span data-mode="eth"><em data-target="eth-total">$###</em> мы отправим вам в Эфире</span>
+          <span data-mode="btc"><em data-target="btc-total">$###</em> мы отправим вам в Биткоинах</span>
 					<span><em data-target="token-total">$###</em> мы отправим вам в Swap токенах</span>
 					<div class="result-price-rows">
-						<div class="result-price-eth">
+						<div data-mode="eth" class="result-price-eth">
 							<strong><em data-target="eth-total">$###</em> = <em data-target="eth-count">##</em> ETH</strong>
 							<span>По текущему курсу</span>
 							<span>1 ETH = <em data-target="eth-price">$###</em></span>
+							<span>Данные <a href="https://coinmarketcap.com/" target="_blank">coinmarketcap</a></span>
+						</div>
+            <div data-mode="btc" class="result-price-btc">
+							<strong><em data-target="btc-total">$###</em> = <em data-target="btc-count">##</em> BTC</strong>
+							<span>По текущему курсу</span>
+							<span>1 BTC = <em data-target="btc-price">$###</em></span>
 							<span>Данные <a href="https://coinmarketcap.com/" target="_blank">coinmarketcap</a></span>
 						</div>
 						<div class="result-price-token">
@@ -233,13 +248,15 @@
 							</div>
 						</div>
 					</div>
-					<h4>Адрес ETH-кошелька для Эфира</h4>
-					<input type="text" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+					<h4 data-mode="eth">Адрес ETH-кошелька для Эфира</h4>
+          <h4 data-mode="btc">Адрес BTC-кошелька для биткоинов</h4>
+					<input type="text" data-mode="eth" class="form-input-text" id="form-input-eth-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
+          <input type="text" data-mode="btc" class="form-input-text" id="form-input-btc-address" placeholder="3NL3yi7vx2J5DJuLMK4J5FQa3fJizQHxw4"/>
 					<div id="for-token-address">
 						<h4>Адрес ETH-кошелька для Swap токенов</h4>
 						<input type="text" class="form-input-text" id="form-input-token-address" placeholder="0x6c832654c7fe93ba8e98c740234bf385eb068900"/>
 					</div>
-					<div class="form-checkbox">
+					<div class="form-checkbox" data-mode="eth">
 						<input type="checkbox" id="form-input-eth-token-equal" />
 						<label data-state="off">Совпадает с ETH-кошельком для Эфира</label>
 						<label data-state="on">Адрес ETH-кошелька для Swap токенов совпадает с ETH-кошельком для Эфира</label>
@@ -254,12 +271,20 @@
 						<a href="#" class="form-button form-button-style-2" id="go-to-step-1">Исправить</a>
 						<a href="#" class="form-button" id="go-to-finish">Всё верно</a>
 					</div>
-					<div class="form-tooltip">
+          <div class="form-tooltip" data-mode="eth">
 						<a href="#">Как обменять эфир на рубли</a>
 						<input type="checkbox" />
 						<div>
 							<p>Отправьте ETH с вашего Ethereum кошелька (например, Матамакс) боту в Телеграм <a href="tg://resolve?domain=ETH_CHANGE_BOT">@ETH_CHANGE_BOT</a>.</p>
 							<p>Бот помогает обменивать ETH на рубли и не только.</p>
+						</div>
+					</div>
+					<div class="form-tooltip" data-mode="btc">
+						<a href="#">Как обменять биткоин на рубли</a>
+						<input type="checkbox" />
+						<div>
+							<p>Отправьте BTC с вашего Bitcoin кошелька боту в Телеграм <a href="tg://resolve?domain=BTC_CHANGE_BOT">@BTC_CHANGE_BOT</a>.</p>
+							<p>Бот помогает обменивать BTC на рубли и не только.</p>
 						</div>
 					</div>
 				</footer>
@@ -270,9 +295,13 @@
 				<h2>Для ускорения процесса оплаты напишите в Telegram <a href="tg://resolve?domain=sashanoxon">@sashanoxon</a></h2>
 				<h1>Вы получите:</h1>
 				<div class="ready-money">
-					<div class="money-eth">
+					<div class="money-eth" data-mode="eth">
 						<strong data-target="eth-count">#####</strong>
 						<span>ETH</span>
+					</div>
+          <div class="money-eth" data-mode="btc">
+						<strong data-target="btc-count">#####</strong>
+						<span>BTC</span>
 					</div>
 					<div class="money-token">
 						<strong data-target="token-count">#####</strong>
@@ -287,7 +316,7 @@
 				<footer></footer>
 			</article>
 			<p class="confirm-answer">Вы уверены что для получения токенов не указали адрес обменника (бота или биржи) и сможете снять токены?</p>
-			<script type="text/javascript" src="./assets/js/main.js?v=5.6"></script>
+			<script type="text/javascript" src="./assets/js/main.js?v=6.0"></script>
 		</section>
 	</div>
 </body>

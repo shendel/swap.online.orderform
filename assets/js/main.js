@@ -521,7 +521,7 @@ $(document).ready ( function () {
     try {
 			var _val = parseFloat($('#form-input-dollar').val())/_btc_usd;
 			if (!isNaN(_val)) {
-				$('#form-input-btc').val(_round_float(_val,2)).removeClass('has-error');
+				$('#form-input-btc').val(_round_float(_val,4)).removeClass('has-error');
 			}
 		} catch (e) {}
   };
@@ -683,18 +683,20 @@ $(document).ready ( function () {
 			_has_errors = true;
 		};
     
-		if (!$('#form-input-eth').val().length
-			|| $('#form-input-eth').hasClass('has-error')
-			|| !_corrent_double($('#form-input-eth').val())
-      && (form_mode=="ETH")
+		if ((
+        !$('#form-input-eth').val().length
+        || $('#form-input-eth').hasClass('has-error')
+        || !_corrent_double($('#form-input-eth').val())
+      ) && (form_mode=="ETH")
 		) {
 			$('#form-input-eth').addClass('has-error');
 			_has_errors = true;
 		};
-    if (!$('#form-input-btc').val().length
-			|| $('#form-input-btc').hasClass('has-error')
-			|| !_corrent_double($('#form-input-btc').val())
-      && (form_mode=="BTC")
+    if ((
+        !$('#form-input-btc').val().length
+        || $('#form-input-btc').hasClass('has-error')
+        || !_corrent_double($('#form-input-btc').val())
+      ) && (form_mode=="BTC")
 		) {
 			$('#form-input-btc').addClass('has-error');
 			_has_errors = true;
@@ -714,9 +716,10 @@ $(document).ready ( function () {
 		} );
 		if (!_has_errors) {
 			/* Запомним сумму в долларах и эфире */
-			_money_dollar = _round_float(parseFloat($('#form-input-dollar').val()),2)
-			_money_eth = _round_float(parseFloat($('#form-input-eth').val()),2)
-      _money_btc = _round_float(parseFloat($('#form-input-btc').val()),2)
+			_money_dollar = _round_float(parseFloat($('#form-input-dollar').val()),2);
+			_money_eth = _round_float(parseFloat($('#form-input-eth').val()),2);
+      _money_btc = _round_float(parseFloat($('#form-input-btc').val()),4);
+      
 			/* Заполним список выполненых работ */
 			$('#form-preview-work LI:not(.result-work-templ)').remove();
 			$.each(_works_list, function (i,info) {
@@ -753,10 +756,10 @@ $(document).ready ( function () {
 		
 		/* Сколько осталось денег, которые будут в эфире */
 		var _eth_money = _round_float(_money_dollar - _token_percent_money,2);
-    var _btc_money = _round_float(_money_dollar - _token_percent_money,2);
+    var _btc_money = _round_float(_money_dollar - _token_percent_money,4);
 		/* Сколько это будет в эфире */
 		_eth_after_count = _round_float(_eth_money / _eth_usd,2);
-		_btc_after_count = _round_float(_btc_money / _btc_usd,2);
+		_btc_after_count = _round_float(_btc_money / _btc_usd,4);
     
 		$('[data-target="token-percent"]').html(_token_percent+'%');
 		$('[data-target="token-total"]').html('$'+_token_percent_money);

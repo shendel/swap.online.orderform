@@ -472,7 +472,9 @@ $(document).ready ( function () {
 	
 	/* Init Values from cookie */
 	(function () {
-		$('#input-token-percent').val(_localStorage.get("tokenPercent",10)+'%');
+    var _token_percent_ls = _localStorage.get("tokenPercent",10);
+    if (_token_percent_ls == 0) _token_percent_ls = 10;
+		$('#input-token-percent').val( _token_percent_ls+'%');
 		$('#form-input-fio').val(_localStorage.get("fio"),"");
 		$('#form-input-eth-address').val(_localStorage.get("address",""));
     $('#form-input-btc-address').val(_localStorage.get("btc-address",""));

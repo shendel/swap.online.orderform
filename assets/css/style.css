@@ -316,8 +316,16 @@ SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].inpu
 	background-position: 100% 50%;
 	background-color: #FFFFFF;
 	padding-right: 90px !important;
+  display: none;
+}
+SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-rubl {
+	background: url(../img/input-rub.png) no-repeat;
+	background-position: 100% 50%;
+	background-color: #FFFFFF;
+	padding-right: 90px !important;
 }
 SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-dollar:disabled,
+SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-rubl:disabled,
 SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-eth:disabled,
 SECTION.form-wrapper DIV.form-row.form-dollar-eth-holder INPUT[type="text"].input-btc:disabled {
 	background-color: #f7f5fa;

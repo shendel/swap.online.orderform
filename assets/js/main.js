@@ -219,6 +219,7 @@ $(document).ready ( function () {
 			return unescape(dc.substring(begin + prefix.length, end));
 		}
 	};
+
 	/* localStorage with cookie callback */
 	var _localStorage = {
 		set : function (c_name , value ) {
@@ -453,6 +454,7 @@ $(document).ready ( function () {
 	} )();
 	/* ------------------------ END ------------------ */
 	/* Получаем курс */
+  var _usd_to_rub = 60;
 	var _eth_usd = 1;
   var _btc_usd = 1;
 	var _works_list = [];
@@ -469,7 +471,29 @@ $(document).ready ( function () {
   var _btc_after_count = 0;
   var _btc_address = "";
 	var _token_address = "";
-	
+
+  (function () {
+    window.setTimeout( function () {
+      $.ajax({
+        dataType: "json",
+        type : 'GET',
+        url: 'https://www.cbr-xml-daily.ru/daily_json.js',
+        success: function (rates) {
+          _usd_to_rub = rates.Valute.USD.Value;
+          $('#form-input-rubl').attr('disabled', false);
+          _localStorage.set("usd2rub",_usd_to_rub);
+        },
+        error: function () {
+          var _usd_to_rub_ls = _localStorage.get("usd2rub");
+          if (_usd_to_rub_ls) {
+            _usd_to_rub = _usd_to_rub_ls;
+          }
+          $('#form-input-rubl').attr('disabled', false);
+        }
+      })
+    }, 1 )
+  })();
+
 	/* Init Values from cookie */
 	(function () {
     var _token_percent_ls = _localStorage.get("tokenPercent",10);
@@ -519,6 +543,22 @@ $(document).ready ( function () {
 			$(e.target).addClass('has-error');
 		}
 	};
+  var _convert_usd_to_rub = function () {
+    try {
+      var _val = parseFloat($('#form-input-dollar').val()*_usd_to_rub);
+      if (!isNaN(_val)) {
+        $('#form-input-rubl').val(_round_float(_val,0)).removeClass('has-error');
+      }
+    } catch (e) {}
+  };
+  var _convert_rub_to_usd = function () {
+    try {
+      var _val = parseFloat($('#form-input-rubl').val()/_usd_to_rub);
+      if (!isNaN(_val)) {
+        $('#form-input-dollar').val(_round_float(_val,2)).removeClass('has-error');
+      }
+    } catch (e) {}
+  };
   var _convert_dollar_to_btc = function () {
     try {
 			var _val = parseFloat($('#form-input-dollar').val())/_btc_usd;
@@ -651,17 +691,26 @@ $(document).ready ( function () {
 	$('#form-input-eth').bind('keyup', function (e) {
 		_fix_dot_number_and_check(e);
 		_convert_eth_to_dollar();
+    _convert_usd_to_rub();
 	});
   $('#form-input-btc').bind('keypress',_filter_dot_number);
 	$('#form-input-btc').bind('keyup', function (e) {
 		_fix_dot_number_and_check(e);
 		_convert_btc_to_dollar();
+    _convert_usd_to_rub();
 	});
 	$('#form-input-dollar').bind('change', function (e) {
 		/* Расчитываем количество эфира */
 		_convert_dollar_to_eth();
     _convert_dollar_to_btc();
+    _convert_usd_to_rub();
 	} );
+  $('#form-input-rubl').bind('change', function (e) {
+    _fix_dot_number_and_check(e);
+    _convert_rub_to_usd();
+    _convert_dollar_to_eth();
+    _convert_dollar_to_btc();
+  });
 	$('#form-input-eth-token-equal').bind('change', function (e) {
 		if ($('#form-input-eth-token-equal').prop("checked")) {
 			$('#for-token-address').addClass('hidden');
